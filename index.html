@@ -286,27 +286,7 @@ body{font-family:'Nunito',sans-serif;background:#F0F4F2;min-height:100vh;display
 </div>
 
 <script>
-// ===================== API KEY (guardada en localStorage del navegador) =====================
-let API_KEY = localStorage.getItem('glucoguia_api_key') || '';
 
-function saveApiKey(){
-  const k = document.getElementById('api-key-input').value.trim();
-  if(!k || !k.startsWith('sk-ant')){alert('Pega una clave válida que empiece con sk-ant-');return;}
-  API_KEY = k;
-  localStorage.setItem('glucoguia_api_key', k);
-  document.getElementById('setup-ok').style.display='block';
-  document.getElementById('setup-box').style.background='linear-gradient(135deg,#E1F5EE,#E1F5EE)';
-  document.getElementById('aimsg').innerHTML += '<div class="amsg bot">🎉 ¡Clave guardada! Ahora sí puedo ayudarte. ¿Qué quieres saber sobre diabetes o nutrición?</div>';
-}
-
-// Al cargar, si ya tiene clave guardada mostrar que está activa
-window.addEventListener('load', ()=>{
-  if(API_KEY){
-    document.getElementById('setup-ok').style.display='block';
-    document.getElementById('setup-ok').textContent='✅ IA ya activada y lista para usarse.';
-    document.getElementById('api-key-input').value = API_KEY;
-  }
-});
 
 // ===================== DATOS =====================
 const CONSEJOS=['Caminar 30 min después de comer reduce el pico de glucosa hasta 30%.','El nopal baja el azúcar de forma natural. Incorpóralo en licuados cada mañana.','La canela mejora la sensibilidad a la insulina. Añádela a tu avena o té.','Come tus verduras primero en cada comida para ralentizar la absorción de glucosa.','El vinagre de manzana (1 cda en agua antes de comer) reduce el azúcar postprandial.','Desayunar proteína reduce el antojo de dulce durante todo el día.','El estrés eleva el azúcar. 5 min de respiración profunda antes de comer ayuda mucho.'];
@@ -415,7 +395,7 @@ async function sendRecipe(){
   try{
     const text = await callAI('Eres chef nutricionista especializado en diabetes. Responde en este formato exacto sin markdown:\nNOMBRE: [nombre]\nTIEMPO: [tiempo]\nINGREDIENTES:\n- [ingrediente]\nPREPARACIÓN:\n1. [paso]\nBENEFICIO: [beneficio en 1 oración]','Crea una receta para: '+msg);
     box.textContent = text || 'No pude generar la receta. Intenta de nuevo.';
-  }catch(e){box.textContent='Error de conexión. Verifica tu clave API e internet.';}
+  }catch(e){box.textContent='No pude generar la receta. Intenta de nuevo.';}
 }
 
 async function sendIA(){
@@ -429,7 +409,7 @@ async function sendIA(){
   try{
     const text = await callAI('Eres GlucoGuía, asistente de salud para diabetes y prediabetes. Responde en español, cálido, claro y práctico. Máximo 4 oraciones. Sin markdown. Si es pregunta médica menciona al médico al final.',msg);
     document.getElementById(lid).textContent = text || 'No pude responder. Intenta de nuevo.';
-  }catch(e){document.getElementById(lid).textContent='Error. Verifica tu clave API en la parte de arriba de esta sección.';}
+  }catch(e){document.getElementById(lid).textContent='No pude responder. Intenta de nuevo en unos segundos.';}
   box.scrollTop=box.scrollHeight;
 }
 
