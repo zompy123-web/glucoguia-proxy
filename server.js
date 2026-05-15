@@ -8,26 +8,24 @@ const PORT = process.env.PORT || 3000;
 const html = fs.readFileSync(path.join(__dirname, "index.html"), "utf8");
 
 require("http").createServer((req, res) => {
-  // Serve the HTML app
+
   if (req.method === "GET") {
     res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
     res.end(html);
     return;
   }
 
-  // CORS headers
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
   if (req.method === "OPTIONS") { res.writeHead(204); res.end(); return; }
 
-  // Proxy to Anthropic
-  if (req.method === "POST" && req.url === "/api") {
+  if (req.method === "POST") {
     let body = "";
     req.on("data", d => body += d);
     req.on("end", () => {
-      const options = {
+      const opts = {
         hostname: "api.anthropic.com",
         path: "/v1/messages",
         method: "POST",
@@ -38,7 +36,7 @@ require("http").createServer((req, res) => {
           "Content-Length": Buffer.byteLength(body)
         }
       };
-      const proxy = https.request(options, r => {
+      const proxy = https.request(opts, r => {
         let data = "";
         r.on("data", d => data += d);
         r.on("end", () => {
@@ -58,4 +56,5 @@ require("http").createServer((req, res) => {
 
   res.writeHead(404);
   res.end("Not found");
-}).listen(PORT, () => console.log("GlucoGuia running on port " + PORT));
+
+}).listen(PORT, () => console.log("GlucoGuia OK en puerto " + PORT));
