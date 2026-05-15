@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<meta name="theme-color" content="#0A5C47"/>
+<title>GlucoGuía 🩺</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Nunito',sans-serif;background:#F0F4F2;min-height:100vh;display:flex;justify-content:center}
+.app{width:100%;max-width:430px;min-height:100vh;background:#F0F4F2;padding-bottom:80px}
+.header{background:linear-gradient(160deg,#0A5C47 0%,#1D9E75 100%);padding:20px 20px 32px;color:white}
+.header-top{display:flex;justify-content:space-between;align-items:center}
+.app-name{font-size:22px;font-weight:800}
+.header-sub{font-size:12px;opacity:.8;margin-top:2px}
+.header-badges{display:flex;gap:6px;margin-top:14px;flex-wrap:wrap}
+.hbadge{background:rgba(255,255,255,.18);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600}
+.content{padding:0 14px 20px;margin-top:-16px}
+.section{display:none}.section.active{display:block}
+.card{background:#fff;border-radius:20px;padding:16px;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#aaa;margin-bottom:10px}
+.glucosa-display{text-align:center;padding:10px 0 6px}
+.glucosa-num{font-size:60px;font-weight:800;color:#1D9E75;line-height:1}
+.glucosa-unit{font-size:13px;color:#aaa;margin-top:3px;font-weight:600}
+.status-pill{display:inline-block;margin-top:10px;padding:6px 20px;border-radius:20px;font-size:13px;font-weight:700}
+.s-normal{background:#E1F5EE;color:#0A5C47}.s-pre{background:#FFF3E0;color:#E65100}.s-high{background:#FFEBEE;color:#B71C1C}
+.reg-row{display:flex;gap:8px;margin-top:14px}
+.reg-row input{flex:1;padding:13px 16px;border:2px solid #E8E8E8;border-radius:14px;font-size:18px;font-family:'Nunito',sans-serif;font-weight:700;background:#FAFAFA;color:#1a1a1a;outline:none}
+.reg-row input:focus{border-color:#1D9E75}
+.reg-btn{padding:13px 22px;background:#1D9E75;color:white;border:none;border-radius:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif}
+.range-row{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-radius:12px;margin-bottom:6px;background:#F8FAF9}
+.tip-day{border-left:4px solid #1D9E75;padding:12px 14px;font-size:14px;color:#333;line-height:1.6;background:#F8FBF9;border-radius:0 12px 12px 0;font-weight:600}
+.stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px}
+.stat-box{background:#fff;border-radius:16px;padding:12px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.stat-num{font-size:22px;font-weight:800;color:#1D9E75}
+.stat-lbl{font-size:11px;color:#aaa;margin-top:2px;font-weight:600}
+.hist-list{max-height:220px;overflow-y:auto;scrollbar-width:none}
+.hist-list::-webkit-scrollbar{display:none}
+.hist-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #F5F5F5}
+.hist-item:last-child{border-bottom:none}
+.hist-val{font-size:18px;font-weight:800}
+.hist-date{font-size:12px;color:#aaa;margin-top:2px;font-weight:600}
+.hist-badge{font-size:11px;padding:4px 10px;border-radius:10px;font-weight:700}
+.empty-state{text-align:center;padding:28px;color:#ccc;font-size:14px;font-weight:600}
+.med-form{display:flex;flex-direction:column;gap:10px;margin-bottom:4px}
+.med-form input,.med-form select{padding:12px 14px;border:2px solid #E8E8E8;border-radius:14px;font-size:14px;font-family:'Nunito',sans-serif;font-weight:600;background:#FAFAFA;color:#1a1a1a;outline:none;width:100%}
+.med-form input:focus,.med-form select:focus{border-color:#1D9E75}
+.med-form-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.add-med-btn{background:#1D9E75;color:white;border:none;border-radius:14px;padding:13px;font-size:15px;font-weight:700;cursor:pointer;width:100%;font-family:'Nunito',sans-serif}
+.med-item{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid #F5F5F5}
+.med-item:last-child{border-bottom:none}
+.med-icon-box{width:42px;height:42px;border-radius:14px;background:#E1F5EE;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.med-info{flex:1}
+.med-name{font-size:14px;font-weight:700;color:#1a1a1a}
+.med-detail{font-size:12px;color:#aaa;margin-top:2px;font-weight:600}
+.med-time{font-size:12px;color:#1D9E75;margin-top:3px;font-weight:700}
+.del-btn{background:none;border:none;font-size:20px;cursor:pointer;color:#ddd;padding:4px}
+.warn-box{background:#FFF8E1;border-left:4px solid #FFB300;border-radius:0 14px 14px 0;padding:12px 14px;font-size:13px;color:#7a5800;line-height:1.6;font-weight:600}
+.day-scroll{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;margin-bottom:14px}
+.day-scroll::-webkit-scrollbar{display:none}
+.day-pill{padding:8px 16px;border-radius:20px;font-size:13px;font-weight:700;cursor:pointer;border:2px solid #E8E8E8;background:#fff;color:#999;white-space:nowrap;flex-shrink:0;font-family:'Nunito',sans-serif}
+.day-pill.active{background:#1D9E75;color:white;border-color:#1D9E75}
+.meal-item{padding:12px 0;border-bottom:1px solid #F5F5F5}
+.meal-item:last-child{border-bottom:none;padding-bottom:0}
+.meal-time-tag{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:#1D9E75;background:#E1F5EE;padding:4px 10px;border-radius:8px;display:inline-block;margin-bottom:5px}
+.meal-name{font-size:14px;font-weight:700;color:#1a1a1a}
+.meal-desc{font-size:12px;color:#999;line-height:1.5;margin-top:2px;font-weight:600}
+.meal-tag{display:inline-block;margin-top:5px;font-size:11px;padding:3px 9px;background:#F0F9F5;color:#0A5C47;border-radius:8px;font-weight:700}
+.recipe-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.rtab{padding:8px 16px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;border:2px solid #E8E8E8;background:#fff;color:#999;font-family:'Nunito',sans-serif}
+.rtab.active{background:#1D9E75;color:white;border-color:#1D9E75}
+.recipe-card{background:#fff;border-radius:20px;margin-bottom:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.recipe-img{width:100%;height:120px;display:flex;align-items:center;justify-content:center;font-size:54px;background:linear-gradient(135deg,#E1F5EE,#9FE1CB)}
+.recipe-body{padding:14px}
+.recipe-name{font-size:15px;font-weight:800;color:#1a1a1a;margin-bottom:6px}
+.recipe-meta{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.rmeta{font-size:11px;color:#888;background:#F5F5F5;padding:4px 10px;border-radius:8px;font-weight:700}
+.recipe-ing{font-size:13px;color:#444;line-height:1.8;font-weight:600}
+.step{font-size:13px;color:#555;line-height:1.5;padding:5px 0;border-bottom:1px solid #F8F8F8;font-weight:600}
+.step:last-child{border-bottom:none}
+.step-n{font-weight:800;color:#1D9E75}
+.ai-recipe-result{background:#F0F9F5;border-radius:14px;padding:14px;font-size:13px;color:#1a1a1a;line-height:1.8;min-height:60px;margin-bottom:12px;display:none;white-space:pre-wrap;font-weight:600}
+.qrbtns{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}
+.qrb{font-size:12px;padding:7px 12px;border:2px solid #1D9E75;border-radius:20px;background:white;color:#1D9E75;cursor:pointer;font-weight:700;font-family:'Nunito',sans-serif}
+.ai-send-row{display:flex;gap:8px}
+.ai-send-row input{flex:1;padding:12px 14px;border:2px solid #E8E8E8;border-radius:14px;font-size:14px;font-family:'Nunito',sans-serif;font-weight:600;background:#fff;color:#1a1a1a;outline:none}
+.ai-send-row input:focus{border-color:#1D9E75}
+.send-btn{padding:12px 16px;background:#1D9E75;color:white;border:none;border-radius:14px;font-size:20px;cursor:pointer}
+.ej-cat{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;margin-bottom:14px}
+.ej-cat::-webkit-scrollbar{display:none}
+.ej-pill{padding:8px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;border:2px solid #E8E8E8;background:#fff;color:#999;white-space:nowrap;flex-shrink:0;font-family:'Nunito',sans-serif}
+.ej-pill.active{background:#0A5C47;color:white;border-color:#0A5C47}
+.video-card{background:#fff;border-radius:20px;margin-bottom:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.video-thumb{position:relative;width:100%;height:160px;background:#111;cursor:pointer}
+.video-thumb img{width:100%;height:100%;object-fit:cover;opacity:.85}
+.play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:56px;height:56px;background:rgba(255,255,255,.95);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 20px rgba(0,0,0,.3)}
+.video-body{padding:14px}
+.video-title{font-size:14px;font-weight:700;color:#1a1a1a;margin-bottom:6px;line-height:1.4}
+.video-meta{display:flex;gap:8px;flex-wrap:wrap}
+.vmeta{font-size:11px;color:#888;background:#F5F5F5;padding:4px 10px;border-radius:8px;font-weight:700}
+.vmeta-green{background:#E1F5EE;color:#0A5C47;font-size:11px;padding:4px 10px;border-radius:8px;font-weight:700}
+.watch-btn{display:block;margin-top:12px;text-align:center;padding:10px;background:#FF0000;color:white;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;border:none;width:100%;font-family:'Nunito',sans-serif}
+.ai-msgs{background:#F5F8F6;border-radius:16px;padding:14px;max-height:320px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;margin-bottom:12px;scrollbar-width:none}
+.ai-msgs::-webkit-scrollbar{display:none}
+.amsg{padding:11px 14px;border-radius:16px;font-size:14px;line-height:1.6;max-width:88%;font-weight:600}
+.amsg.bot{background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.07);align-self:flex-start;color:#1a1a1a;border-radius:4px 16px 16px 16px}
+.amsg.user{background:#1D9E75;color:white;align-self:flex-end;border-radius:16px 4px 16px 16px}
+.dots span{display:inline-block;width:7px;height:7px;background:#ccc;border-radius:50%;animation:blink 1s infinite;margin:0 2px}
+.dots span:nth-child(2){animation-delay:.2s}.dots span:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.3}40%{opacity:1}}
+.qbtns{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}
+.qbtn{font-size:12px;padding:8px 12px;border:2px solid #1D9E75;border-radius:20px;background:white;color:#1D9E75;cursor:pointer;font-weight:700;font-family:'Nunito',sans-serif}
+/* SETUP API KEY */
+.setup-box{background:linear-gradient(135deg,#E1F5EE,#F0F9F5);border:2px solid #9FE1CB;border-radius:20px;padding:20px;margin-bottom:14px;text-align:center}
+.setup-title{font-size:16px;font-weight:800;color:#0A5C47;margin-bottom:8px}
+.setup-desc{font-size:13px;color:#555;line-height:1.6;margin-bottom:14px;font-weight:600}
+.setup-input{width:100%;padding:12px 14px;border:2px solid #9FE1CB;border-radius:12px;font-size:13px;font-family:'Nunito',sans-serif;font-weight:600;background:#fff;color:#1a1a1a;outline:none;margin-bottom:10px}
+.setup-input:focus{border-color:#1D9E75}
+.setup-btn{background:#1D9E75;color:white;border:none;border-radius:12px;padding:12px 24px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;width:100%}
+.setup-ok{background:#E1F5EE;border-radius:12px;padding:10px 14px;font-size:13px;color:#0A5C47;font-weight:700;display:none;margin-top:8px}
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:white;border-top:1px solid #F0F0F0;display:flex;padding:8px 0 16px;box-shadow:0 -4px 24px rgba(0,0,0,.08);z-index:100}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:4px 0}
+.nav-icon{font-size:20px;line-height:1}
+.nav-label{font-size:9px;color:#ccc;font-weight:700;letter-spacing:.3px}
+.nav-item.active .nav-label{color:#1D9E75}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <div class="header-top">
+      <div><div class="app-name">🩺 GlucoGuía</div><div class="header-sub">Tu salud en un solo lugar</div></div>
+      <div style="font-size:28px">💚</div>
+    </div>
+    <div class="header-badges">
+      <span class="hbadge">Diabéticos</span><span class="hbadge">Prediabéticos</span><span class="hbadge">IA incluida</span>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- INICIO -->
+    <div id="tab-inicio" class="section active">
+      <div class="card" style="margin-top:18px">
+        <div class="lbl">Mi glucosa hoy</div>
+        <div class="glucosa-display">
+          <div class="glucosa-num" id="gnum">--</div>
+          <div class="glucosa-unit">mg/dL</div>
+          <div id="gpill" style="display:none"></div>
+        </div>
+        <div class="reg-row">
+          <input type="number" id="ginput" placeholder="Ej: 110" inputmode="numeric"/>
+          <button class="reg-btn" onclick="regGlucosa()">Registrar</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="lbl">Rangos de referencia</div>
+        <div class="range-row"><span style="font-size:13px;color:#555;font-weight:600">✅ Normal (ayunas)</span><span style="color:#0A5C47;font-weight:800;font-size:13px">70–99 mg/dL</span></div>
+        <div class="range-row"><span style="font-size:13px;color:#555;font-weight:600">⚠️ Prediabetes</span><span style="color:#E65100;font-weight:800;font-size:13px">100–125 mg/dL</span></div>
+        <div class="range-row"><span style="font-size:13px;color:#555;font-weight:600">🔴 Diabetes</span><span style="color:#B71C1C;font-weight:800;font-size:13px">126+ mg/dL</span></div>
+      </div>
+      <div class="card"><div class="lbl">Consejo del día</div><div class="tip-day" id="tip-dia"></div></div>
+    </div>
+
+    <!-- HISTORIAL -->
+    <div id="tab-historial" class="section">
+      <div style="margin-top:18px">
+        <div class="stats-row">
+          <div class="stat-box"><div class="stat-num" id="st-prom">--</div><div class="stat-lbl">Promedio</div></div>
+          <div class="stat-box"><div class="stat-num" id="st-max">--</div><div class="stat-lbl">Máximo</div></div>
+          <div class="stat-box"><div class="stat-num" id="st-reg">0</div><div class="stat-lbl">Registros</div></div>
+        </div>
+        <div class="card">
+          <div class="lbl">Gráfica de glucosa</div>
+          <div style="overflow-x:auto"><canvas id="glucoChart" height="160"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="lbl">Historial de registros</div>
+          <div class="hist-list" id="hist-list"><div class="empty-state">📋 Aún no hay registros.<br>Registra tu glucosa en Inicio.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MEDICAMENTOS -->
+    <div id="tab-meds" class="section">
+      <div style="margin-top:18px">
+        <div class="card">
+          <div class="lbl">Agregar medicamento</div>
+          <div class="med-form">
+            <input type="text" id="med-nombre" placeholder="Nombre (Ej: Metformina 500mg)"/>
+            <input type="text" id="med-dosis" placeholder="Dosis (Ej: 1 tableta)"/>
+            <div class="med-form-row">
+              <input type="time" id="med-hora1" title="Hora de toma"/>
+              <input type="time" id="med-hora2" title="Segunda toma (opcional)"/>
+            </div>
+            <select id="med-frec">
+              <option value="Cada día">Cada día</option>
+              <option value="Cada 8 horas">Cada 8 horas</option>
+              <option value="Cada 12 horas">Cada 12 horas</option>
+              <option value="Con el desayuno">Con el desayuno</option>
+              <option value="Con el almuerzo">Con el almuerzo</option>
+              <option value="Con la cena">Con la cena</option>
+              <option value="Antes de dormir">Antes de dormir</option>
+            </select>
+            <button class="add-med-btn" onclick="addMed()">+ Agregar medicamento</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="lbl">Mis medicamentos</div>
+          <div id="med-list"><div class="empty-state">💊 Aún no tienes medicamentos.<br>Agrega uno arriba.</div></div>
+        </div>
+        <div class="warn-box">⚠️ Esta app es solo de apoyo. Siempre sigue las instrucciones de tu médico.</div>
+      </div>
+    </div>
+
+    <!-- PLAN -->
+    <div id="tab-plan" class="section">
+      <div style="margin-top:18px">
+        <div class="day-scroll" id="day-scroll"></div>
+        <div class="card">
+          <div class="lbl" id="plan-label">Lunes</div>
+          <div id="plan-meals"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RECETAS -->
+    <div id="tab-recetas" class="section">
+      <div style="margin-top:18px">
+        <div class="recipe-tabs" id="recipe-tabs"></div>
+        <div id="recipe-list"></div>
+        <div class="card">
+          <div class="lbl">🤖 Crear receta con IA</div>
+          <div class="qrbtns">
+            <button class="qrb" onclick="askRecipe('Desayuno rápido sin azúcar')">Desayuno rápido</button>
+            <button class="qrb" onclick="askRecipe('Postre saludable para diabéticos')">Postre saludable</button>
+            <button class="qrb" onclick="askRecipe('Bebida natural para bajar el azúcar')">Bebida natural</button>
+            <button class="qrb" onclick="askRecipe('Snack sin azúcar para media tarde')">Snack saludable</button>
+          </div>
+          <div class="ai-recipe-result" id="recipe-result"></div>
+          <div class="ai-send-row">
+            <input type="text" id="recipe-input" placeholder="Ej: receta con nopal y pollo..." onkeydown="if(event.key==='Enter')sendRecipe()"/>
+            <button class="send-btn" onclick="sendRecipe()">➤</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EJERCICIOS -->
+    <div id="tab-ejercicios" class="section">
+      <div style="margin-top:18px">
+        <div class="ej-cat" id="ej-cats"></div>
+        <div id="video-list"></div>
+      </div>
+    </div>
+
+    <!-- IA CHAT -->
+    <div id="tab-ia" class="section">
+      <div style="margin-top:18px">
+
+        <div class="lbl">Preguntas rápidas</div>
+        <div class="qbtns" id="qbtns"></div>
+        <div class="ai-msgs" id="aimsg">
+          <div class="amsg bot">¡Hola! Soy GlucoGuía 💚 Puedo ayudarte con consejos de alimentación, recetas saludables, ejercicios y dudas sobre diabetes. ¿En qué te ayudo hoy?</div>
+        </div>
+        <div class="ai-send-row">
+          <input type="text" id="aiinput" placeholder="Escribe tu pregunta..." onkeydown="if(event.key==='Enter')sendIA()"/>
+          <button class="send-btn" onclick="sendIA()">➤</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="bottom-nav">
+    <div class="nav-item active" id="nav-inicio" onclick="showTab('inicio')"><div class="nav-icon">🏠</div><div class="nav-label">INICIO</div></div>
+    <div class="nav-item" id="nav-historial" onclick="showTab('historial')"><div class="nav-icon">📊</div><div class="nav-label">HISTORIAL</div></div>
+    <div class="nav-item" id="nav-meds" onclick="showTab('meds')"><div class="nav-icon">💊</div><div class="nav-label">MEDICAM.</div></div>
+    <div class="nav-item" id="nav-plan" onclick="showTab('plan')"><div class="nav-icon">📅</div><div class="nav-label">PLAN</div></div>
+    <div class="nav-item" id="nav-recetas" onclick="showTab('recetas')"><div class="nav-icon">🍽️</div><div class="nav-label">RECETAS</div></div>
+    <div class="nav-item" id="nav-ejercicios" onclick="showTab('ejercicios')"><div class="nav-icon">🏃</div><div class="nav-label">EJERCICIOS</div></div>
+    <div class="nav-item" id="nav-ia" onclick="showTab('ia')"><div class="nav-icon">🤖</div><div class="nav-label">IA CHAT</div></div>
+  </div>
+</div>
+
+<script>
+// ===================== API KEY (guardada en localStorage del navegador) =====================
+let API_KEY = localStorage.getItem('glucoguia_api_key') || '';
+
+function saveApiKey(){
+  const k = document.getElementById('api-key-input').value.trim();
+  if(!k || !k.startsWith('sk-ant')){alert('Pega una clave válida que empiece con sk-ant-');return;}
+  API_KEY = k;
+  localStorage.setItem('glucoguia_api_key', k);
+  document.getElementById('setup-ok').style.display='block';
+  document.getElementById('setup-box').style.background='linear-gradient(135deg,#E1F5EE,#E1F5EE)';
+  document.getElementById('aimsg').innerHTML += '<div class="amsg bot">🎉 ¡Clave guardada! Ahora sí puedo ayudarte. ¿Qué quieres saber sobre diabetes o nutrición?</div>';
+}
+
+// Al cargar, si ya tiene clave guardada mostrar que está activa
+window.addEventListener('load', ()=>{
+  if(API_KEY){
+    document.getElementById('setup-ok').style.display='block';
+    document.getElementById('setup-ok').textContent='✅ IA ya activada y lista para usarse.';
+    document.getElementById('api-key-input').value = API_KEY;
+  }
+});
+
+// ===================== DATOS =====================
+const CONSEJOS=['Caminar 30 min después de comer reduce el pico de glucosa hasta 30%.','El nopal baja el azúcar de forma natural. Incorpóralo en licuados cada mañana.','La canela mejora la sensibilidad a la insulina. Añádela a tu avena o té.','Come tus verduras primero en cada comida para ralentizar la absorción de glucosa.','El vinagre de manzana (1 cda en agua antes de comer) reduce el azúcar postprandial.','Desayunar proteína reduce el antojo de dulce durante todo el día.','El estrés eleva el azúcar. 5 min de respiración profunda antes de comer ayuda mucho.'];
+document.getElementById('tip-dia').textContent=CONSEJOS[new Date().getDay()%CONSEJOS.length];
+
+// ===================== GLUCOSA =====================
+let glucosaData=[], glucoChart=null;
+function regGlucosa(){
+  const v=parseInt(document.getElementById('ginput').value);
+  if(!v||v<50||v>400)return;
+  const now=new Date();
+  glucosaData.unshift({val:v,fecha:now.toLocaleDateString('es-MX',{day:'2-digit',month:'short'}),hora:now.toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'})});
+  if(glucosaData.length>20)glucosaData=glucosaData.slice(0,20);
+  document.getElementById('gnum').textContent=v;
+  const pill=document.getElementById('gpill');
+  pill.style.display='block';
+  if(v<100){pill.className='status-pill s-normal';pill.textContent='✅ Nivel normal — ¡Excelente!';}
+  else if(v<126){pill.className='status-pill s-pre';pill.textContent='⚠️ Prediabetes — cuida tu dieta';}
+  else{pill.className='status-pill s-high';pill.textContent='🔴 Nivel alto — consulta a tu médico';}
+  document.getElementById('ginput').value='';
+  renderHistorial();
+}
+function renderHistorial(){
+  if(!glucosaData.length)return;
+  const vals=glucosaData.map(g=>g.val);
+  const prom=Math.round(vals.reduce((a,b)=>a+b,0)/vals.length);
+  document.getElementById('st-prom').textContent=prom;
+  document.getElementById('st-max').textContent=Math.max(...vals);
+  document.getElementById('st-reg').textContent=glucosaData.length;
+  const sorted=[...glucosaData].reverse();
+  const colors=sorted.map(g=>g.val<100?'#1D9E75':g.val<126?'#FB8C00':'#E53935');
+  if(glucoChart)glucoChart.destroy();
+  const w=Math.max(320,sorted.length*55);
+  const canvas=document.getElementById('glucoChart');
+  canvas.width=w;
+  glucoChart=new Chart(canvas.getContext('2d'),{
+    type:'line',
+    data:{labels:sorted.map(g=>g.hora),datasets:[{data:sorted.map(g=>g.val),borderColor:'#1D9E75',backgroundColor:'rgba(29,158,117,0.08)',pointBackgroundColor:colors,pointRadius:7,borderWidth:2.5,tension:.35,fill:true}]},
+    options:{responsive:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.parsed.y} mg/dL`}}},scales:{y:{min:60,max:220,ticks:{font:{size:11,family:'Nunito'},color:'#aaa'}},x:{grid:{display:false},ticks:{font:{size:10,family:'Nunito'},color:'#aaa',maxRotation:45}}}}
+  });
+  document.getElementById('hist-list').innerHTML=glucosaData.map(g=>{
+    const col=g.val<100?'#1D9E75':g.val<126?'#E65100':'#B71C1C';
+    const cls=g.val<100?'s-normal':g.val<126?'s-pre':'s-high';
+    const lbl=g.val<100?'Normal':g.val<126?'Prediabetes':'Alto';
+    return`<div class="hist-item"><div><div class="hist-val" style="color:${col}">${g.val} <span style="font-size:12px;font-weight:600;color:#aaa">mg/dL</span></div><div class="hist-date">${g.fecha} · ${g.hora}</div></div><span class="hist-badge ${cls}">${lbl}</span></div>`;
+  }).join('');
+}
+
+// ===================== MEDICAMENTOS =====================
+let meds=[];
+function addMed(){
+  const nombre=document.getElementById('med-nombre').value.trim();
+  if(!nombre){alert('Escribe el nombre del medicamento');return;}
+  meds.unshift({id:Date.now(),nombre,dosis:document.getElementById('med-dosis').value.trim(),hora1:document.getElementById('med-hora1').value,hora2:document.getElementById('med-hora2').value,frec:document.getElementById('med-frec').value,icon:['💊','💉','🧪','⚕️'][Math.floor(Math.random()*4)]});
+  ['med-nombre','med-dosis','med-hora1','med-hora2'].forEach(id=>document.getElementById(id).value='');
+  renderMeds();
+}
+function delMed(id){meds=meds.filter(m=>m.id!==id);renderMeds();}
+function renderMeds(){
+  const el=document.getElementById('med-list');
+  if(!meds.length){el.innerHTML='<div class="empty-state">💊 Aún no tienes medicamentos.<br>Agrega uno arriba.</div>';return;}
+  el.innerHTML=meds.map(m=>`<div class="med-item"><div class="med-icon-box">${m.icon}</div><div class="med-info"><div class="med-name">${m.nombre}</div><div class="med-detail">${m.dosis?m.dosis+' · ':''} ${m.frec}</div>${m.hora1?`<div class="med-time">🕐 ${m.hora1}${m.hora2?' · '+m.hora2:''}</div>`:''}</div><button class="del-btn" onclick="delMed(${m.id})">🗑️</button></div>`).join('');
+}
+
+// ===================== PLAN =====================
+const PLAN={lun:{label:'Lunes',meals:[{t:'Desayuno',n:'Avena con canela y nueces',d:'Avena integral, leche descremada, canela, nueces y fresas',b:'Bajo IG'},{t:'Snack AM',n:'Manzana + maní natural',d:'1 manzana con mantequilla de maní sin azúcar',b:'Fibra + proteína'},{t:'Almuerzo',n:'Pollo al horno con verduras',d:'Pechuga, brócoli, zanahoria y camote con aceite oliva',b:'Proteína + fibra'},{t:'Snack PM',n:'Yogur griego natural',d:'Sin azúcar con pepino o apio picado',b:'Probióticos'},{t:'Cena',n:'Sopa de lentejas',d:'Con espinaca, tomate y cúrcuma. Tortilla integral',b:'Fibra alta'}]},mar:{label:'Martes',meals:[{t:'Desayuno',n:'Huevos con espinaca',d:'2 huevos revueltos, espinaca, tomate cherry y aguacate',b:'Sin carbs simples'},{t:'Snack AM',n:'Nueces mixtas',d:'Nueces, almendras y semillas de girasol',b:'Grasas saludables'},{t:'Almuerzo',n:'Salmón con ensalada',d:'Salmón al vapor, espinaca, pepino y vinagreta de limón',b:'Omega-3'},{t:'Snack PM',n:'Apio con hummus',d:'4–5 tallos de apio con 2 cdas de hummus',b:'Fibra + proteína'},{t:'Cena',n:'Caldo de pollo y verduras',d:'Caldo ligero con pollo, calabacín, zanahoria y poro',b:'Hidratante'}]},mie:{label:'Miércoles',meals:[{t:'Desayuno',n:'Smoothie verde sin azúcar',d:'Espinaca, pepino, limón, jengibre y apio con agua',b:'Antioxidante'},{t:'Snack AM',n:'Queso cottage con pepino',d:'½ taza cottage con rodajas de pepino',b:'Proteína'},{t:'Almuerzo',n:'Bowl de quinoa con pollo',d:'Quinoa, pechuga, aguacate, tomate y cilantro',b:'Proteína completa'},{t:'Snack PM',n:'Té verde con canela',d:'Sin endulzante',b:'Antioxidante'},{t:'Cena',n:'Tortitas de coliflor',d:'Coliflor rallada con huevo y queso. Con ensalada',b:'Bajo en carbs'}]},jue:{label:'Jueves',meals:[{t:'Desayuno',n:'Pan integral con aguacate',d:'1 rebanada integral, ½ aguacate, huevo pochado',b:'Fibra + proteína'},{t:'Snack AM',n:'Fresas con crema ácida',d:'1 taza de fresas con crema sin azúcar',b:'Bajo en azúcar'},{t:'Almuerzo',n:'Estofado de res magra',d:'Res magra, zanahoria, chayote y ejotes',b:'Hierro + fibra'},{t:'Snack PM',n:'Jícama con chile y limón',d:'Bastones de jícama con limón y chile',b:'Fibra alta'},{t:'Cena',n:'Ensalada de garbanzo',d:'Garbanzo, pepino, tomate, cebolla morada y aceite oliva',b:'Proteína vegetal'}]},vie:{label:'Viernes',meals:[{t:'Desayuno',n:'Yogur con semillas',d:'Yogur griego sin azúcar, chía, linaza y mora azul',b:'Probióticos'},{t:'Snack AM',n:'Pepino con guacamole',d:'Rodajas de pepino con guacamole sin tortilla',b:'Grasas buenas'},{t:'Almuerzo',n:'Tacos de lechuga',d:'Hojas de lechuga, carne molida, pico de gallo y aguacate',b:'Sin gluten'},{t:'Snack PM',n:'Almendras tostadas',d:'15–20 almendras sin sal añadida',b:'Magnesio'},{t:'Cena',n:'Crema de calabaza',d:'Con jengibre, cúrcuma y semillas de calabaza',b:'Antiinflamatorio'}]},sab:{label:'Sábado',meals:[{t:'Desayuno',n:'Omelette de verduras',d:'Espinaca, pimiento, cebolla y queso panela',b:'Sin carbs simples'},{t:'Snack AM',n:'Mango con tajín (poco)',d:'½ taza mango con limón y tajín — moderado',b:'Vitamina C'},{t:'Almuerzo',n:'Pescado a la veracruzana',d:'Filete blanco en salsa de jitomate y aceitunas',b:'Proteína ligera'},{t:'Snack PM',n:'Palomitas sin mantequilla',d:'Palomitas caseras con sal',b:'Fibra'},{t:'Cena',n:'Sopa azteca ligera',d:'Caldo de frijol negro, tortillas horneadas, aguacate',b:'Fibra + calcio'}]},dom:{label:'Domingo',meals:[{t:'Desayuno',n:'Chilaquiles verdes ligeros',d:'Tortillas horneadas, salsa verde, pollo y queso',b:'Versión saludable'},{t:'Snack AM',n:'Licuado de nopal',d:'Nopal, pepino, limón, agua y stevia',b:'Hipoglucemiante'},{t:'Almuerzo',n:'Pozole de pollo sin grasa',d:'Pechuga, orégano, limón y rábano',b:'Sin culpa'},{t:'Snack PM',n:'Gelatina sin azúcar',d:'De agua con fresas o arándanos',b:'Sin azúcar'},{t:'Cena',n:'Sopa de verduras detox',d:'Apio, zanahoria, calabacín, ejotes y hierbas',b:'Detox'}]}};
+const DIAS=['lun','mar','mie','jue','vie','sab','dom'],DL=['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'];
+let diaActivo='lun';
+(()=>{const ds=document.getElementById('day-scroll');DIAS.forEach((d,i)=>{const b=document.createElement('button');b.className='day-pill'+(d===diaActivo?' active':'');b.textContent=DL[i];b.onclick=()=>{diaActivo=d;document.querySelectorAll('.day-pill').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderPlan();};ds.appendChild(b);});renderPlan();})();
+function renderPlan(){const d=PLAN[diaActivo];document.getElementById('plan-label').textContent=d.label;document.getElementById('plan-meals').innerHTML=d.meals.map(m=>`<div class="meal-item"><span class="meal-time-tag">${m.t}</span><div class="meal-name">${m.n}</div><div class="meal-desc">${m.d}</div><span class="meal-tag">${m.b}</span></div>`).join('');}
+
+// ===================== RECETAS =====================
+const RCATS=['Desayuno','Almuerzo','Cena','Snacks','Bebidas'];
+const RECETAS={Desayuno:[{e:'🥣',n:'Avena con nopal y canela',t:'10 min',p:'1',c:'220 kcal',ing:'½ taza avena integral • ¼ nopal licuado • 1 taza agua • ½ cdta canela • Stevia • Nueces',steps:['Licúa el nopal con ½ taza de agua.','Cocina la avena con el nopal licuado 5 min.','Agrega canela y stevia.','Sirve con nueces encima.']},{e:'🥚',n:'Omelette de espinaca y queso',t:'8 min',p:'1',c:'280 kcal',ing:'2 huevos • 1 puño espinaca • 2 cdas queso panela • ¼ cebolla • Sal y pimienta',steps:['Bate los huevos con sal y pimienta.','Saltea cebolla y espinaca 2 min.','Vierte el huevo y cuaja a fuego bajo.','Agrega queso, dobla y sirve.']}],Almuerzo:[{e:'🥗',n:'Bowl de quinoa con pollo',t:'25 min',p:'2',c:'380 kcal',ing:'½ taza quinoa • 1 pechuga • ½ aguacate • Tomate cherry • Espinaca • Limón • Aceite oliva',steps:['Cocina quinoa 15 min.','Asa la pechuga con aceite y orégano.','Corta el pollo en tiras.','Arma el bowl con todos los ingredientes.']},{e:'🐟',n:'Salmón al limón con verduras',t:'20 min',p:'1',c:'340 kcal',ing:'1 filete salmón • Brócoli • Zanahoria • Limón • Ajo • Aceite oliva',steps:['Marina el salmón con limón, ajo y sal 5 min.','Cocina verduras al vapor 8 min.','Sella el salmón 4 min por lado.','Sirve sobre las verduras.']}],Cena:[{e:'🍲',n:'Sopa de lentejas con espinaca',t:'30 min',p:'3',c:'210 kcal',ing:'1 taza lentejas • 2 tazas espinaca • 1 tomate • ½ cebolla • 2 ajos • Cúrcuma • Comino',steps:['Sofríe cebolla y ajo 3 min.','Agrega tomate, cúrcuma y comino 2 min.','Añade lentejas y 4 tazas agua 20 min.','Agrega espinaca al final y sirve.']},{e:'🥬',n:'Tacos de lechuga con carne',t:'15 min',p:'2',c:'290 kcal',ing:'200g carne molida magra • 8 hojas lechuga • ½ aguacate • Pico de gallo • Comino',steps:['Cocina la carne a fuego alto 8 min.','Sazona con comino y sal.','Prepara pico de gallo.','Arma tacos en hojas de lechuga.']}],Snacks:[{e:'🥑',n:'Guacamole con jícama',t:'5 min',p:'2',c:'140 kcal',ing:'1 aguacate • ½ limón • ¼ cebolla morada • Cilantro • Sal • Chile • 1 jícama',steps:['Corta jícama en bastones.','Aplasta aguacate con tenedor.','Agrega limón, cebolla, cilantro y chile.','Sirve con bastones de jícama.']},{e:'🧀',n:'Apio con queso crema light',t:'3 min',p:'1',c:'90 kcal',ing:'4 tallos apio • 2 cdas queso crema light • ½ pepino • Sal • Eneldo',steps:['Corta apio en trozos.','Rebana el pepino.','Unta queso crema en el apio.','Espolvorea eneldo y sal.']}],Bebidas:[{e:'🥤',n:'Agua de nopal con limón',t:'5 min',p:'2',c:'15 kcal',ing:'1 nopal crudo • 2 limones • 1 trozo jengibre • 1 L agua • Stevia • Hielo',steps:['Pela y trocea el nopal.','Licúa con agua, jengibre y limón.','Cuela (opcional).','Mezcla con agua fría y sirve con hielo.']},{e:'🍵',n:'Té de canela y manzana',t:'8 min',p:'2',c:'5 kcal',ing:'2 ramas canela • ½ manzana verde • 1 clavo • 500 ml agua • Stevia',steps:['Hierve agua con canela y clavo 5 min.','Agrega manzana en rodajas.','Cocina 3 min más.','Cuela y endulza con stevia.']}]};
+let rcatActiva='Desayuno';
+(()=>{const rt=document.getElementById('recipe-tabs');RCATS.forEach(c=>{const b=document.createElement('button');b.className='rtab'+(c===rcatActiva?' active':'');b.textContent=c;b.onclick=()=>{rcatActiva=c;document.querySelectorAll('.rtab').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderRecetas();};rt.appendChild(b);});renderRecetas();})();
+function renderRecetas(){document.getElementById('recipe-list').innerHTML=(RECETAS[rcatActiva]||[]).map(r=>`<div class="recipe-card"><div class="recipe-img">${r.e}</div><div class="recipe-body"><div class="recipe-name">${r.n}</div><div class="recipe-meta"><span class="rmeta">⏱ ${r.t}</span><span class="rmeta">👤 ${r.p}</span><span class="rmeta">🔥 ${r.c}</span></div><div class="lbl" style="margin-top:10px">Ingredientes</div><div class="recipe-ing">${r.ing.split(' • ').map(i=>'• '+i).join('<br>')}</div><div class="lbl" style="margin-top:10px">Preparación</div><div>${r.steps.map((s,i)=>`<div class="step"><span class="step-n">${i+1}. </span>${s}</div>`).join('')}</div></div></div>`).join('');}
+
+// ===================== VIDEOS =====================
+const VIDEOS=[{cat:'Caminata',title:'Caminata en casa 30 min para diabéticos',dur:'30 min',nivel:'Principiante',ben:'Baja glucosa post-comida',id:'enPCaKFCFdY'},{cat:'Yoga',title:'Yoga suave para diabéticos y presión alta',dur:'20 min',nivel:'Principiante',ben:'Reduce estrés y cortisol',id:'v7AYKMP6rOE'},{cat:'Cardio',title:'Ejercicio aeróbico sentado para diabéticos',dur:'25 min',nivel:'Fácil',ben:'Mejora circulación',id:'WkPRDrFQiRI'},{cat:'Fuerza',title:'Ejercicios con banda elástica para diabéticos',dur:'20 min',nivel:'Intermedio',ben:'Aumenta sensibilidad a insulina',id:'DHnUohDHDQ0'},{cat:'Estiramientos',title:'Estiramientos para pies y piernas — diabéticos',dur:'15 min',nivel:'Principiante',ben:'Previene neuropatía',id:'blHLdHqwTYk'},{cat:'Caminata',title:'Reto 10 min diarios para bajar el azúcar',dur:'10 min',nivel:'Principiante',ben:'Hábito fácil',id:'4vTJHUDB5ak'}];
+const EJCATS=['Todos','Caminata','Yoga','Cardio','Fuerza','Estiramientos'];
+let ejActiva='Todos';
+(()=>{const ec=document.getElementById('ej-cats');EJCATS.forEach(c=>{const b=document.createElement('button');b.className='ej-pill'+(c===ejActiva?' active':'');b.textContent=c;b.onclick=()=>{ejActiva=c;document.querySelectorAll('.ej-pill').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderVideos();};ec.appendChild(b);});renderVideos();})();
+function renderVideos(){const f=ejActiva==='Todos'?VIDEOS:VIDEOS.filter(v=>v.cat===ejActiva);document.getElementById('video-list').innerHTML=f.map(v=>`<div class="video-card"><div class="video-thumb" onclick="window.open('https://www.youtube.com/watch?v=${v.id}','_blank')"><img src="https://img.youtube.com/vi/${v.id}/mqdefault.jpg" alt="${v.title}" loading="lazy"/><div class="play-btn">▶</div></div><div class="video-body"><div class="video-title">${v.title}</div><div class="video-meta"><span class="vmeta">⏱ ${v.dur}</span><span class="vmeta">${v.nivel}</span><span class="vmeta-green">💚 ${v.ben}</span></div><button class="watch-btn" onclick="window.open('https://www.youtube.com/watch?v=${v.id}','_blank')">▶ Ver en YouTube</button></div></div>`).join('');}
+
+// ===================== IA =====================
+(()=>{const qb=document.getElementById('qbtns');['¿Qué comer para bajar el azúcar?','Dame una receta baja en azúcar','¿Qué ejercicio para principiantes?','¿Puedo comer fruta siendo diabético?'].forEach(p=>{const b=document.createElement('button');b.className='qbtn';b.textContent=p;b.onclick=()=>quickAsk(p);qb.appendChild(b);});})();
+function quickAsk(q){showTab('ia');document.getElementById('aiinput').value=q;setTimeout(sendIA,300);}
+async function askRecipe(q){document.getElementById('recipe-input').value=q;sendRecipe();}
+
+async function callAI(systemPrompt, userMsg){
+  const res = await fetch('/api',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:systemPrompt,messages:[{role:'user',content:userMsg}]})
+  });
+  const data = await res.json();
+  return data.content?.[0]?.text || null;
+}
+
+async function sendRecipe(){
+  const inp=document.getElementById('recipe-input');
+  const msg=inp.value.trim();if(!msg)return;inp.value='';
+  const box=document.getElementById('recipe-result');
+  box.style.display='block';box.textContent='⏳ Creando tu receta...';
+  try{
+    const text = await callAI('Eres chef nutricionista especializado en diabetes. Responde en este formato exacto sin markdown:\nNOMBRE: [nombre]\nTIEMPO: [tiempo]\nINGREDIENTES:\n- [ingrediente]\nPREPARACIÓN:\n1. [paso]\nBENEFICIO: [beneficio en 1 oración]','Crea una receta para: '+msg);
+    box.textContent = text || 'No pude generar la receta. Intenta de nuevo.';
+  }catch(e){box.textContent='Error de conexión. Verifica tu clave API e internet.';}
+}
+
+async function sendIA(){
+  const inp=document.getElementById('aiinput');
+  const msg=inp.value.trim();if(!msg)return;inp.value='';
+  const box=document.getElementById('aimsg');
+  box.innerHTML+=`<div class="amsg user">${msg}</div>`;
+  const lid='l'+Date.now();
+  box.innerHTML+=`<div class="amsg bot" id="${lid}"><div class="dots"><span></span><span></span><span></span></div></div>`;
+  box.scrollTop=box.scrollHeight;
+  try{
+    const text = await callAI('Eres GlucoGuía, asistente de salud para diabetes y prediabetes. Responde en español, cálido, claro y práctico. Máximo 4 oraciones. Sin markdown. Si es pregunta médica menciona al médico al final.',msg);
+    document.getElementById(lid).textContent = text || 'No pude responder. Intenta de nuevo.';
+  }catch(e){document.getElementById(lid).textContent='Error. Verifica tu clave API en la parte de arriba de esta sección.';}
+  box.scrollTop=box.scrollHeight;
+}
+
+// ===================== NAVEGACIÓN =====================
+function showTab(name){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  document.getElementById('nav-'+name).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(name==='historial')setTimeout(renderHistorial,100);
+}
+</script>
+</body>
+</html>
