@@ -120,6 +120,15 @@ body{font-family:'Nunito',sans-serif;background:#F0F4F2;min-height:100vh;display
 .setup-input:focus{border-color:#1D9E75}
 .setup-btn{background:#1D9E75;color:white;border:none;border-radius:12px;padding:12px 24px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;width:100%}
 .setup-ok{background:#E1F5EE;border-radius:12px;padding:10px 14px;font-size:13px;color:#0A5C47;font-weight:700;display:none;margin-top:8px}
+
+.donation-card{background:linear-gradient(135deg,#0A5C47,#1D9E75);border-radius:20px;padding:20px;margin-bottom:12px;text-align:center;box-shadow:0 4px 20px rgba(29,158,117,0.3)}
+.donation-title{font-size:18px;font-weight:800;color:white;margin-bottom:6px}
+.donation-desc{font-size:13px;color:rgba(255,255,255,.85);line-height:1.6;margin-bottom:16px;font-weight:600}
+.donation-btn{display:inline-block;background:#FFD700;color:#1a1a1a;padding:14px 28px;border-radius:14px;font-size:15px;font-weight:800;cursor:pointer;border:none;font-family:'Nunito',sans-serif;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+.donation-amounts{display:flex;gap:8px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.amt-btn{background:rgba(255,255,255,.2);color:white;border:2px solid rgba(255,255,255,.4);border-radius:12px;padding:8px 16px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif}
+.amt-btn.selected{background:white;color:#0A5C47}
+.donation-hearts{font-size:24px;margin-bottom:10px}
 .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:white;border-top:1px solid #F0F0F0;display:flex;padding:8px 0 16px;box-shadow:0 -4px 24px rgba(0,0,0,.08);z-index:100}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:4px 0}
 .nav-icon{font-size:22px;line-height:1}
@@ -272,6 +281,48 @@ body{font-family:'Nunito',sans-serif;background:#F0F4F2;min-height:100vh;display
       </div>
     </div>
 
+
+    <!-- DONACIÓN -->
+    <div id="tab-donacion" class="section">
+      <div style="margin-top:18px">
+        <div class="donation-card">
+          <div class="donation-hearts">💚🩺💚</div>
+          <div class="donation-title">Apoya GlucoGuía</div>
+          <div class="donation-desc">Esta app es gratuita y fue creada con mucho amor para ayudar a personas con diabetes y prediabetes. Si te ha sido útil, considera hacer una donación para mantenerla viva y seguir mejorándola.</div>
+          <div class="donation-amounts">
+            <button class="amt-btn selected" onclick="selectAmt(this,'5')">$5</button>
+            <button class="amt-btn" onclick="selectAmt(this,'10')">$10</button>
+            <button class="amt-btn" onclick="selectAmt(this,'20')">$20</button>
+            <button class="amt-btn" onclick="selectAmt(this,'50')">$50</button>
+          </div>
+          <a id="donation-btn" class="donation-btn" href="https://www.paypal.com/paypalme/zompy123gmail/5" target="_blank">💛 Donar con PayPal</a>
+        </div>
+
+        <div class="card" style="text-align:center">
+          <div class="lbl">¿Para qué se usa tu donación?</div>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px">
+            <div style="display:flex;align-items:center;gap:12px;background:#F8FAF9;border-radius:12px;padding:12px">
+              <span style="font-size:24px">🖥️</span>
+              <div style="text-align:left"><div style="font-size:13px;font-weight:700;color:#1a1a1a">Servidores</div><div style="font-size:12px;color:#888;font-weight:600">Mantener la app funcionando 24/7</div></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;background:#F8FAF9;border-radius:12px;padding:12px">
+              <span style="font-size:24px">🤖</span>
+              <div style="text-align:left"><div style="font-size:13px;font-weight:700;color:#1a1a1a">Inteligencia Artificial</div><div style="font-size:12px;color:#888;font-weight:600">Para que la IA siga respondiendo tus dudas</div></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;background:#F8FAF9;border-radius:12px;padding:12px">
+              <span style="font-size:24px">✨</span>
+              <div style="text-align:left"><div style="font-size:13px;font-weight:700;color:#1a1a1a">Nuevas funciones</div><div style="font-size:12px;color:#888;font-weight:600">Más recetas, ejercicios y herramientas</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="text-align:center">
+          <div class="donation-hearts" style="font-size:18px">🙏</div>
+          <div style="font-size:14px;font-weight:700;color:#1a1a1a;margin-bottom:6px">¡Gracias por tu apoyo!</div>
+          <div style="font-size:13px;color:#888;font-weight:600;line-height:1.6">Cada donación, por pequeña que sea, nos ayuda a seguir ayudando a más personas con diabetes en todo el mundo.</div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="bottom-nav">
@@ -282,6 +333,7 @@ body{font-family:'Nunito',sans-serif;background:#F0F4F2;min-height:100vh;display
     <div class="nav-item" id="nav-recetas" onclick="showTab('recetas')"><div class="nav-icon">🍽️</div><div class="nav-label">RECETAS</div></div>
     <div class="nav-item" id="nav-ejercicios" onclick="showTab('ejercicios')"><div class="nav-icon">🏃</div><div class="nav-label">EJERCICIOS</div></div>
     <div class="nav-item" id="nav-ia" onclick="showTab('ia')"><div class="nav-icon">🤖</div><div class="nav-label">IA CHAT</div></div>
+    <div class="nav-item" id="nav-donacion" onclick="showTab('donacion')"><div class="nav-icon">💝</div><div class="nav-label">DONAR</div></div>
   </div>
 </div>
 
@@ -381,7 +433,7 @@ async function callAI(systemPrompt, userMsg){
   const res = await fetch('/api',{
     method:'POST',
     headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:1000,system:systemPrompt,messages:[{role:'user',content:userMsg}]})
+    body:JSON.stringify({model:'claude-3-5-sonnet-20241022',max_tokens:1000,system:systemPrompt,messages:[{role:'user',content:userMsg}]})
   });
   const data = await res.json();
   return data.content?.[0]?.text || null;
@@ -413,6 +465,12 @@ async function sendIA(){
   box.scrollTop=box.scrollHeight;
 }
 
+function selectAmt(btn, amt){
+  document.querySelectorAll('.amt-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  document.getElementById('donation-btn').href='https://www.paypal.com/paypalme/zompy123gmail/'+amt;
+  document.getElementById('donation-btn').textContent='💛 Donar $'+amt+' con PayPal';
+}
 // ===================== NAVEGACIÓN =====================
 function showTab(name){
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
