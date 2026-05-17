@@ -368,7 +368,7 @@ body{font-family:'Nunito',sans-serif;background:#F0F4F2;min-height:100vh;display
               <span style="font-size:20px">📊</span>
             </div>
             <button onclick="exportarDatos()" style="background:#0A5C47;color:white;border:none;border-radius:12px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif">📤 Exportar mis datos</button>
-            <button onclick="if(confirm('¿Seguro que quieres borrar todo el historial?'))borrarHistorial()" style="background:#FFEBEE;color:#B71C1C;border:2px solid #FFCDD2;border-radius:12px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif">🗑️ Borrar historial</button>
+            <button onclick="borrarHistorial()" style="background:#FFEBEE;color:#B71C1C;border:2px solid #FFCDD2;border-radius:12px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif">🗑️ Borrar historial</button>
           </div>
         </div>
       </div>
@@ -497,22 +497,61 @@ function renderPerfil(){
 }
 
 function exportarDatos(){
-  const datos = {perfil, historial: glucosaData, exportado: new Date().toLocaleDateString('es-MX')};
-  const blob = new Blob([JSON.stringify(datos, null, 2)], {type:'application/json'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'glucoguia-datos.json';
-  a.click();
+  try {
+    // Create CSV content
+    let csv = 'Fecha,Hora,Glucosa (mg/dL),Estado\n';
+    glucosaData.forEach(g => {
+      const estado = g.val < 100 ? 'Normal' : g.val < 126 ? 'Prediabetes' : 'Alto';
+      csv += `${g.fecha},${g.hora},${g.val},${estado}\n`;
+    });
+    
+    // Add profile info at top
+    const info = perfil.nombre ? `GlucoGuia - Reporte de ${perfil.nombre}\nExportado: ${new Date().toLocaleDateString('es-MX')}\nTotal registros: ${glucosaData.length}\n\n` : '';
+    const fullContent = info + csv;
+    
+    // Try download
+    const blob = new Blob([fullContent], {type:'text/csv;charset=utf-8;'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'glucoguia-historial.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    if(glucosaData.length === 0){
+      alert('⚠️ No hay registros para exportar. Registra tu glucosa primero.');
+    } else {
+      alert('✅ Historial exportado: ' + glucosaData.length + ' registros');
+    }
+  } catch(e) {
+    // Fallback: show data as text
+    let texto = 'HISTORIAL DE GLUCOSA - GlucoGuía\n\n';
+    glucosaData.forEach(g => {
+      const estado = g.val < 100 ? 'Normal' : g.val < 126 ? 'Prediabetes' : 'Alto';
+      texto += `${g.fecha} ${g.hora}: ${g.val} mg/dL (${estado})\n`;
+    });
+    alert(texto || 'No hay registros aún.');
+  }
 }
 
 function borrarHistorial(){
-  glucosaData = [];
-  localStorage.setItem('glucoguia_historial', JSON.stringify(glucosaData));
-  renderHistorial();
-  renderPerfil();
-  document.getElementById('gnum').textContent = '--';
-  document.getElementById('gpill').style.display = 'none';
-  alert('✅ Historial borrado');
+  if(glucosaData.length === 0){
+    alert('⚠️ El historial ya está vacío.');
+    return;
+  }
+  const total = glucosaData.length;
+  if(confirm('¿Seguro que quieres borrar ' + total + ' registros? Esta acción no se puede deshacer.')){
+    glucosaData = [];
+    localStorage.setItem('glucoguia_historial', JSON.stringify(glucosaData));
+    localStorage.setItem('glucoguia_meds', JSON.stringify(meds));
+    renderHistorial();
+    renderPerfil();
+    document.getElementById('gnum').textContent = '--';
+    document.getElementById('gpill').style.display = 'none';
+    alert('✅ Historial borrado correctamente.');
+  }
 }
 
 // ===================== GLUCOSA =====================
