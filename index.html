@@ -787,9 +787,135 @@ pedirPermiso();
 setInterval(checkAlarmas, 30000); // Verificar cada 30 segundos
 checkAlarmas(); // Verificar inmediatamente al cargar
 
+// ===================== SISTEMA DE CALIFICACIÓN =====================
+function checkCalificacion(){
+  const yacalifico = localStorage.getItem('glucoguia_califico');
+  if(yacalifico) return;
+
+  const primerUso = localStorage.getItem('glucoguia_primer_uso');
+  const ahora = Date.now();
+
+  if(!primerUso){
+    localStorage.setItem('glucoguia_primer_uso', ahora);
+    return;
+  }
+
+  const diasTranscurridos = (ahora - parseInt(primerUso)) / (1000 * 60 * 60 * 24);
+  const registros = glucosaData.length;
+
+  // Mostrar después de 3 días Y al menos 3 registros
+  if(diasTranscurridos >= 3 && registros >= 3){
+    setTimeout(mostrarCalificacion, 3000);
+  }
+}
+
+function mostrarCalificacion(){
+  const yacalifico = localStorage.getItem('glucoguia_califico');
+  if(yacalifico) return;
+
+  const modal = document.createElement('div');
+  modal.id = 'rating-modal';
+  modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeIn 0.3s ease';
+
+  modal.innerHTML = `
+    <div style="background:white;border-radius:24px;padding:28px;max-width:340px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3)">
+      <div style="font-size:48px;margin-bottom:12px">🩺</div>
+      <div style="font-size:18px;font-weight:800;color:#0A5C47;margin-bottom:8px">¿Te está ayudando GlucoGuía?</div>
+      <div style="font-size:13px;color:#888;font-weight:600;line-height:1.6;margin-bottom:20px">Tu opinión nos ayuda a mejorar y llegar a más personas con diabetes. ¡Solo toma 10 segundos!</div>
+      
+      <div style="display:flex;justify-content:center;gap:8px;margin-bottom:20px" id="stars-row">
+        <span class="star" onclick="selectStar(1)" style="font-size:36px;cursor:pointer;filter:grayscale(1)">⭐</span>
+        <span class="star" onclick="selectStar(2)" style="font-size:36px;cursor:pointer;filter:grayscale(1)">⭐</span>
+        <span class="star" onclick="selectStar(3)" style="font-size:36px;cursor:pointer;filter:grayscale(1)">⭐</span>
+        <span class="star" onclick="selectStar(4)" style="font-size:36px;cursor:pointer;filter:grayscale(1)">⭐</span>
+        <span class="star" onclick="selectStar(5)" style="font-size:36px;cursor:pointer;filter:grayscale(1)">⭐</span>
+      </div>
+
+      <div id="rating-msg" style="font-size:13px;color:#aaa;margin-bottom:16px;min-height:20px"></div>
+
+      <button onclick="enviarCalificacion()" id="btn-calificar" style="background:#1D9E75;color:white;border:none;border-radius:14px;padding:13px;font-size:15px;font-weight:700;cursor:pointer;width:100%;font-family:'Nunito',sans-serif;margin-bottom:10px;display:none">
+        ⭐ Calificar en Play Store
+      </button>
+      <button onclick="recordarMasTarde()" style="background:transparent;color:#aaa;border:none;font-size:13px;font-weight:600;cursor:pointer;width:100%;padding:8px;font-family:'Nunito',sans-serif">
+        Recordarme más tarde
+      </button>
+      <button onclick="nuncaMostrar()" style="background:transparent;color:#ddd;border:none;font-size:12px;cursor:pointer;width:100%;padding:4px;font-family:'Nunito',sans-serif">
+        No volver a mostrar
+      </button>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+}
+
+let estrellaSeleccionada = 0;
+function selectStar(n){
+  estrellaSeleccionada = n;
+  const stars = document.querySelectorAll('.star');
+  stars.forEach((s, i) => {
+    s.style.filter = i < n ? 'none' : 'grayscale(1)';
+    s.style.transform = i < n ? 'scale(1.1)' : 'scale(1)';
+  });
+  const msgs = ['😔 Lo sentimos, ¿qué podemos mejorar?','😐 Gracias, seguiremos mejorando','😊 ¡Bien! Ayúdanos con una reseña','😃 ¡Qué bien! ¿Nos dejas 5 estrellas?','🎉 ¡Increíble! ¿Nos ayudas en Play Store?'];
+  document.getElementById('rating-msg').textContent = msgs[n-1];
+  document.getElementById('rating-msg').style.color = n >= 4 ? '#1D9E75' : '#888';
+  document.getElementById('btn-calificar').style.display = 'block';
+  if(n >= 4){
+    document.getElementById('btn-calificar').textContent = '⭐ Calificar en Play Store';
+    document.getElementById('btn-calificar').style.background = '#1D9E75';
+  } else {
+    document.getElementById('btn-calificar').textContent = '📝 Enviar sugerencia';
+    document.getElementById('btn-calificar').style.background = '#888';
+  }
+}
+
+function enviarCalificacion(){
+  localStorage.setItem('glucoguia_califico', '1');
+  const modal = document.getElementById('rating-modal');
+  if(estrellaSeleccionada >= 4){
+    // Redirect to Play Store
+    window.open('https://play.google.com/store/apps/details?id=com.glucoguia.app', '_blank');
+  } else {
+    // Show thank you for feedback
+    modal.querySelector('div > div').innerHTML = `
+      <div style="font-size:48px;margin-bottom:12px">🙏</div>
+      <div style="font-size:18px;font-weight:800;color:#0A5C47;margin-bottom:8px">¡Gracias por tu opinión!</div>
+      <div style="font-size:13px;color:#888;font-weight:600;line-height:1.6;margin-bottom:20px">Tus comentarios nos ayudan a mejorar GlucoGuía para todos.</div>
+      <button onclick="document.getElementById('rating-modal').remove()" style="background:#1D9E75;color:white;border:none;border-radius:14px;padding:13px;font-size:15px;font-weight:700;cursor:pointer;width:100%;font-family:'Nunito',sans-serif">
+        💚 Cerrar
+      </button>
+    `;
+    return;
+  }
+  if(modal) modal.remove();
+}
+
+function recordarMasTarde(){
+  // Reset timer to show again in 7 days
+  const en7dias = Date.now() - (1000 * 60 * 60 * 24 * 0); // keep current but add 7 days delay
+  localStorage.setItem('glucoguia_primer_uso', Date.now() - (1000 * 60 * 60 * 24 * 0));
+  localStorage.removeItem('glucoguia_califico');
+  // Actually delay by resetting to show in 7 more days
+  localStorage.setItem('glucoguia_recordar', Date.now() + (1000 * 60 * 60 * 24 * 7));
+  const modal = document.getElementById('rating-modal');
+  if(modal) modal.remove();
+}
+
+function nuncaMostrar(){
+  localStorage.setItem('glucoguia_califico', 'nunca');
+  const modal = document.getElementById('rating-modal');
+  if(modal) modal.remove();
+}
+
+// CSS fadeIn
+const ratingStyle = document.createElement('style');
+ratingStyle.textContent = '@keyframes fadeIn{from{opacity:0}to{opacity:1}}';
+document.head.appendChild(ratingStyle);
+
 // ===================== INICIO =====================
 renderMeds();
 renderPerfil();
+checkCalificacion();
 </script>
 </body>
 </html>
