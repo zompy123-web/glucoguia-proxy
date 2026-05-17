@@ -129,6 +129,27 @@ body{font-family:'Nunito',sans-serif;background:#F0F4F2;min-height:100vh;display
 .amt-btn{background:rgba(255,255,255,.2);color:white;border:2px solid rgba(255,255,255,.4);border-radius:12px;padding:8px 16px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif}
 .amt-btn.selected{background:white;color:#0A5C47}
 .donation-hearts{font-size:24px;margin-bottom:10px}
+
+.profile-header{background:linear-gradient(135deg,#0A5C47,#1D9E75);border-radius:20px;padding:20px;margin-bottom:12px;text-align:center;color:white}
+.profile-avatar{width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 12px}
+.profile-name{font-size:20px;font-weight:800;margin-bottom:4px}
+.profile-sub{font-size:13px;opacity:.8;font-weight:600}
+.profile-badges{display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap}
+.profile-badge{background:rgba(255,255,255,.2);border-radius:20px;padding:4px 12px;font-size:12px;font-weight:600}
+.profile-form{display:flex;flex-direction:column;gap:10px}
+.profile-form input,.profile-form select{padding:12px 14px;border:2px solid #E8E8E8;border-radius:14px;font-size:14px;font-family:'Nunito',sans-serif;font-weight:600;background:#FAFAFA;color:#1a1a1a;outline:none;width:100%}
+.profile-form input:focus,.profile-form select:focus{border-color:#1D9E75}
+.profile-form-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.save-profile-btn{background:#1D9E75;color:white;border:none;border-radius:14px;padding:13px;font-size:15px;font-weight:700;cursor:pointer;width:100%;font-family:'Nunito',sans-serif;margin-top:4px}
+.profile-stat{background:#F8FAF9;border-radius:12px;padding:12px;text-align:center}
+.profile-stat-num{font-size:20px;font-weight:800;color:#1D9E75}
+.profile-stat-lbl{font-size:11px;color:#aaa;font-weight:600;margin-top:2px}
+.profile-stats-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px}
+.welcome-banner{background:linear-gradient(135deg,#E1F5EE,#F0F9F5);border-radius:16px;padding:14px 16px;margin-bottom:12px;display:flex;align-items:center;gap:12px}
+.welcome-emoji{font-size:32px}
+.welcome-text{flex:1}
+.welcome-name{font-size:16px;font-weight:800;color:#0A5C47}
+.welcome-sub{font-size:12px;color:#888;font-weight:600;margin-top:2px}
 .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:white;border-top:1px solid #F0F0F0;display:flex;padding:8px 0 16px;box-shadow:0 -4px 24px rgba(0,0,0,.08);z-index:100}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:4px 0}
 .nav-icon{font-size:22px;line-height:1}
@@ -152,7 +173,14 @@ body{font-family:'Nunito',sans-serif;background:#F0F4F2;min-height:100vh;display
 
     <!-- INICIO -->
     <div id="tab-inicio" class="section active">
-      <div class="card" style="margin-top:18px">
+              <div class="welcome-banner" id="welcome-banner" style="display:none">
+          <div class="welcome-emoji" id="welcome-emoji">👋</div>
+          <div class="welcome-text">
+            <div class="welcome-name" id="welcome-name">¡Hola!</div>
+            <div class="welcome-sub" id="welcome-sub">Bienvenido a GlucoGuía</div>
+          </div>
+        </div>
+<div class="card" style="margin-top:18px">
         <div class="lbl">Mi glucosa hoy</div>
         <div class="glucosa-display">
           <div class="glucosa-num" id="gnum">--</div>
@@ -282,6 +310,69 @@ body{font-family:'Nunito',sans-serif;background:#F0F4F2;min-height:100vh;display
     </div>
 
 
+
+    <!-- PERFIL -->
+    <div id="tab-perfil" class="section">
+      <div style="margin-top:18px">
+        <div class="profile-header" id="profile-header">
+          <div class="profile-avatar" id="profile-avatar">👤</div>
+          <div class="profile-name" id="profile-display-name">Mi Perfil</div>
+          <div class="profile-sub" id="profile-display-sub">Completa tu información</div>
+          <div class="profile-badges" id="profile-display-badges"></div>
+        </div>
+
+        <div class="profile-stats-grid">
+          <div class="profile-stat"><div class="profile-stat-num" id="p-registros">0</div><div class="profile-stat-lbl">Registros</div></div>
+          <div class="profile-stat"><div class="profile-stat-num" id="p-promedio">--</div><div class="profile-stat-lbl">Promedio</div></div>
+          <div class="profile-stat"><div class="profile-stat-num" id="p-dias">0</div><div class="profile-stat-lbl">Días activo</div></div>
+        </div>
+
+        <div class="card">
+          <div class="lbl">Mi información</div>
+          <div class="profile-form">
+            <input type="text" id="p-nombre" placeholder="Tu nombre completo"/>
+            <input type="number" id="p-edad" placeholder="Edad" inputmode="numeric"/>
+            <div class="profile-form-row">
+              <input type="number" id="p-peso" placeholder="Peso (kg)" inputmode="numeric"/>
+              <input type="number" id="p-altura" placeholder="Altura (cm)" inputmode="numeric"/>
+            </div>
+            <select id="p-tipo">
+              <option value="">Tipo de diabetes...</option>
+              <option value="Tipo 1">Diabetes Tipo 1</option>
+              <option value="Tipo 2">Diabetes Tipo 2</option>
+              <option value="Prediabetes">Prediabetes</option>
+              <option value="Gestacional">Diabetes Gestacional</option>
+              <option value="Ninguna">Sin diagnóstico aún</option>
+            </select>
+            <select id="p-meta">
+              <option value="">Mi meta principal...</option>
+              <option value="Bajar azúcar">Bajar el azúcar</option>
+              <option value="Perder peso">Perder peso</option>
+              <option value="Mejorar alimentación">Mejorar alimentación</option>
+              <option value="Controlar medicamentos">Controlar medicamentos</option>
+              <option value="Prevenir complicaciones">Prevenir complicaciones</option>
+            </select>
+            <input type="text" id="p-medico" placeholder="Nombre de tu médico (opcional)"/>
+            <button class="save-profile-btn" onclick="saveProfile()">💾 Guardar perfil</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="lbl">⚙️ Datos de la app</div>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:#F8FAF9;border-radius:12px">
+              <div>
+                <div style="font-size:13px;font-weight:700;color:#1a1a1a">Historial de glucosa</div>
+                <div style="font-size:12px;color:#888;font-weight:600" id="p-total-registros">0 registros guardados</div>
+              </div>
+              <span style="font-size:20px">📊</span>
+            </div>
+            <button onclick="exportarDatos()" style="background:#0A5C47;color:white;border:none;border-radius:12px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif">📤 Exportar mis datos</button>
+            <button onclick="if(confirm('¿Seguro que quieres borrar todo el historial?'))borrarHistorial()" style="background:#FFEBEE;color:#B71C1C;border:2px solid #FFCDD2;border-radius:12px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif">🗑️ Borrar historial</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- DONACIÓN -->
     <div id="tab-donacion" class="section">
       <div style="margin-top:18px">
@@ -333,6 +424,7 @@ body{font-family:'Nunito',sans-serif;background:#F0F4F2;min-height:100vh;display
     <div class="nav-item" id="nav-recetas" onclick="showTab('recetas')"><div class="nav-icon">🍽️</div><div class="nav-label">RECETAS</div></div>
     <div class="nav-item" id="nav-ejercicios" onclick="showTab('ejercicios')"><div class="nav-icon">🏃</div><div class="nav-label">EJERCICIOS</div></div>
     <div class="nav-item" id="nav-ia" onclick="showTab('ia')"><div class="nav-icon">🤖</div><div class="nav-label">IA CHAT</div></div>
+    <div class="nav-item" id="nav-perfil" onclick="showTab('perfil')"><div class="nav-icon">👤</div><div class="nav-label">PERFIL</div></div>
     <div class="nav-item" id="nav-donacion" onclick="showTab('donacion')"><div class="nav-icon">💝</div><div class="nav-label">DONAR</div></div>
   </div>
 </div>
@@ -344,14 +436,99 @@ body{font-family:'Nunito',sans-serif;background:#F0F4F2;min-height:100vh;display
 const CONSEJOS=['Caminar 30 min después de comer reduce el pico de glucosa hasta 30%.','El nopal baja el azúcar de forma natural. Incorpóralo en licuados cada mañana.','La canela mejora la sensibilidad a la insulina. Añádela a tu avena o té.','Come tus verduras primero en cada comida para ralentizar la absorción de glucosa.','El vinagre de manzana (1 cda en agua antes de comer) reduce el azúcar postprandial.','Desayunar proteína reduce el antojo de dulce durante todo el día.','El estrés eleva el azúcar. 5 min de respiración profunda antes de comer ayuda mucho.'];
 document.getElementById('tip-dia').textContent=CONSEJOS[new Date().getDay()%CONSEJOS.length];
 
+// ===================== PERFIL =====================
+let perfil = JSON.parse(localStorage.getItem('glucoguia_perfil') || '{}');
+
+function saveProfile(){
+  perfil = {
+    nombre: document.getElementById('p-nombre').value.trim(),
+    edad: document.getElementById('p-edad').value,
+    peso: document.getElementById('p-peso').value,
+    altura: document.getElementById('p-altura').value,
+    tipo: document.getElementById('p-tipo').value,
+    meta: document.getElementById('p-meta').value,
+    medico: document.getElementById('p-medico').value.trim(),
+  };
+  localStorage.setItem('glucoguia_perfil', JSON.stringify(perfil));
+  renderPerfil();
+  alert('✅ Perfil guardado correctamente');
+}
+
+function renderPerfil(){
+  if(!perfil.nombre) return;
+  const avatares = {'Tipo 1':'💉','Tipo 2':'🩺','Prediabetes':'⚠️','Gestacional':'🤱','Ninguna':'👤','':`👤`};
+  document.getElementById('profile-avatar').textContent = avatares[perfil.tipo] || '👤';
+  document.getElementById('profile-display-name').textContent = perfil.nombre || 'Mi Perfil';
+  document.getElementById('profile-display-sub').textContent = perfil.tipo ? `${perfil.tipo} · ${perfil.edad ? perfil.edad+' años' : ''}` : 'Completa tu información';
+  
+  const badges = [];
+  if(perfil.tipo) badges.push(perfil.tipo);
+  if(perfil.meta) badges.push(perfil.meta);
+  if(perfil.peso && perfil.altura) badges.push(`${perfil.peso}kg · ${perfil.altura}cm`);
+  document.getElementById('profile-display-badges').innerHTML = badges.map(b=>`<span class="profile-badge">${b}</span>`).join('');
+
+  if(perfil.nombre){
+    document.getElementById('p-nombre').value = perfil.nombre;
+    document.getElementById('p-edad').value = perfil.edad || '';
+    document.getElementById('p-peso').value = perfil.peso || '';
+    document.getElementById('p-altura').value = perfil.altura || '';
+    document.getElementById('p-tipo').value = perfil.tipo || '';
+    document.getElementById('p-meta').value = perfil.meta || '';
+    document.getElementById('p-medico').value = perfil.medico || '';
+
+    // Welcome banner
+    const hora = new Date().getHours();
+    const saludo = hora < 12 ? '🌅 Buenos días' : hora < 19 ? '☀️ Buenas tardes' : '🌙 Buenas noches';
+    document.getElementById('welcome-banner').style.display = 'flex';
+    document.getElementById('welcome-emoji').textContent = hora < 12 ? '🌅' : hora < 19 ? '☀️' : '🌙';
+    document.getElementById('welcome-name').textContent = saludo + ', ' + perfil.nombre.split(' ')[0] + '!';
+    document.getElementById('welcome-sub').textContent = perfil.tipo ? perfil.tipo + ' · Meta: ' + (perfil.meta || 'Sin definir') : 'Bienvenido a GlucoGuía';
+  }
+
+  // Stats
+  const total = glucosaData.length;
+  document.getElementById('p-registros').textContent = total;
+  document.getElementById('p-total-registros').textContent = total + ' registros guardados';
+  if(total > 0){
+    const prom = Math.round(glucosaData.reduce((a,b)=>a+b.val,0)/total);
+    document.getElementById('p-promedio').textContent = prom;
+    const dias = new Set(glucosaData.map(g=>g.fecha)).size;
+    document.getElementById('p-dias').textContent = dias;
+  }
+}
+
+function exportarDatos(){
+  const datos = {perfil, historial: glucosaData, exportado: new Date().toLocaleDateString('es-MX')};
+  const blob = new Blob([JSON.stringify(datos, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'glucoguia-datos.json';
+  a.click();
+}
+
+function borrarHistorial(){
+  glucosaData = [];
+  localStorage.setItem('glucoguia_historial', JSON.stringify(glucosaData));
+  renderHistorial();
+  renderPerfil();
+  document.getElementById('gnum').textContent = '--';
+  document.getElementById('gpill').style.display = 'none';
+  alert('✅ Historial borrado');
+}
+
+// Cargar perfil al inicio
+renderPerfil();
+
 // ===================== GLUCOSA =====================
-let glucosaData=[], glucoChart=null;
+let glucosaData = JSON.parse(localStorage.getItem('glucoguia_historial') || '[]'), glucoChart=null;
+
 function regGlucosa(){
   const v=parseInt(document.getElementById('ginput').value);
   if(!v||v<50||v>400)return;
   const now=new Date();
   glucosaData.unshift({val:v,fecha:now.toLocaleDateString('es-MX',{day:'2-digit',month:'short'}),hora:now.toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'})});
-  if(glucosaData.length>20)glucosaData=glucosaData.slice(0,20);
+  if(glucosaData.length>200)glucosaData=glucosaData.slice(0,200);
+  localStorage.setItem('glucoguia_historial', JSON.stringify(glucosaData));
   document.getElementById('gnum').textContent=v;
   const pill=document.getElementById('gpill');
   pill.style.display='block';
@@ -360,6 +537,7 @@ function regGlucosa(){
   else{pill.className='status-pill s-high';pill.textContent='🔴 Nivel alto — consulta a tu médico';}
   document.getElementById('ginput').value='';
   renderHistorial();
+  renderPerfil();
 }
 function renderHistorial(){
   if(!glucosaData.length)return;
