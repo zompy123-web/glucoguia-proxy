@@ -367,7 +367,8 @@ body{font-family:'Nunito',sans-serif;background:#F0F4F2;min-height:100vh;display
               </div>
               <span style="font-size:20px">📊</span>
             </div>
-            <button onclick="exportarDatos()" style="background:#0A5C47;color:white;border:none;border-radius:12px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif">📤 Exportar mis datos</button>
+            <button onclick="exportarWhatsApp()" style="background:#25D366;color:white;border:none;border-radius:12px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;width:100%">📱 Enviar por WhatsApp</button>
+            <button onclick="exportarDatos()" style="background:#0A5C47;color:white;border:none;border-radius:12px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;width:100%;margin-top:8px">📋 Ver y copiar historial</button>
             <button onclick="borrarHistorial()" style="background:#FFEBEE;color:#B71C1C;border:2px solid #FFCDD2;border-radius:12px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif">🗑️ Borrar historial</button>
           </div>
         </div>
@@ -535,10 +536,10 @@ function mostrarOpcionesExportar(texto){
       
       <div style="display:flex;flex-direction:column;gap:10px">
         <button onclick="compartirWhatsApp()" style="background:#25D366;color:white;border:none;border-radius:14px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px">
-          📱 Compartir por WhatsApp
+          💬 Abrir en WhatsApp
         </button>
         <button onclick="compartirNativo()" style="background:#1D9E75;color:white;border:none;border-radius:14px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif">
-          📤 Compartir (SMS, Email, etc.)
+          📤 Compartir (Email, Telegram, etc.)
         </button>
         <button onclick="copiarPortapapeles()" style="background:#F5F5F5;color:#1a1a1a;border:none;border-radius:14px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif">
           📋 Copiar al portapapeles
@@ -558,20 +559,33 @@ function mostrarOpcionesExportar(texto){
 
 function compartirWhatsApp(){
   const texto = encodeURIComponent(window._exportTexto);
-  window.open('https://wa.me/?text=' + texto, '_blank');
+  // Try multiple methods for Android WebView
+  const url = 'https://api.whatsapp.com/send?text=' + texto;
+  const a = document.createElement('a');
+  a.href = url;
+  a.target = '_blank';
+  a.rel = 'noopener';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
   document.getElementById('export-modal').remove();
 }
 
 function compartirNativo(){
+  const modal = document.getElementById('export-modal');
   if(navigator.share){
     navigator.share({
       title: 'Mi historial de glucosa - GlucoGuía',
       text: window._exportTexto
-    }).catch(()=>{});
+    }).then(()=>{
+      if(modal) modal.remove();
+    }).catch(()=>{
+      // If share fails, copy to clipboard
+      copiarPortapapeles();
+    });
   } else {
-    compartirWhatsApp();
+    copiarPortapapeles();
   }
-  document.getElementById('export-modal').remove();
 }
 
 function copiarPortapapeles(){
