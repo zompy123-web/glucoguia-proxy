@@ -333,7 +333,7 @@ body{font-family:'Nunito',sans-serif;background:#F0F4F2;min-height:100vh;display
             <input type="text" id="p-nombre" placeholder="Tu nombre completo"/>
             <input type="number" id="p-edad" placeholder="Edad" inputmode="numeric"/>
             <div class="profile-form-row">
-              <input type="number" id="p-peso" placeholder="Peso (kg)" inputmode="numeric"/>
+              <input type="number" id="p-peso" placeholder="Peso (lbs)" inputmode="numeric"/>
               <input type="number" id="p-altura" placeholder="Altura (cm)" inputmode="numeric"/>
             </div>
             <select id="p-tipo">
@@ -464,7 +464,7 @@ function renderPerfil(){
   const badges = [];
   if(perfil.tipo) badges.push(perfil.tipo);
   if(perfil.meta) badges.push(perfil.meta);
-  if(perfil.peso && perfil.altura) badges.push(`${perfil.peso}kg · ${perfil.altura}cm`);
+  if(perfil.peso && perfil.altura) badges.push(`${perfil.peso}lbs · ${perfil.altura}cm`);
   document.getElementById('profile-display-badges').innerHTML = badges.map(b=>`<span class="profile-badge">${b}</span>`).join('');
 
   if(perfil.nombre){
