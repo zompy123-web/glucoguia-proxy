@@ -516,9 +516,6 @@ function borrarHistorial(){
   alert('✅ Historial borrado');
 }
 
-// Cargar perfil al inicio
-renderPerfil();
-
 // ===================== GLUCOSA =====================
 let glucosaData = JSON.parse(localStorage.getItem('glucoguia_historial') || '[]'), glucoChart=null;
 
@@ -566,15 +563,16 @@ function renderHistorial(){
 }
 
 // ===================== MEDICAMENTOS =====================
-let meds=[];
+let meds = JSON.parse(localStorage.getItem('glucoguia_meds') || '[]');
 function addMed(){
   const nombre=document.getElementById('med-nombre').value.trim();
   if(!nombre){alert('Escribe el nombre del medicamento');return;}
   meds.unshift({id:Date.now(),nombre,dosis:document.getElementById('med-dosis').value.trim(),hora1:document.getElementById('med-hora1').value,hora2:document.getElementById('med-hora2').value,frec:document.getElementById('med-frec').value,icon:['💊','💉','🧪','⚕️'][Math.floor(Math.random()*4)]});
+  localStorage.setItem('glucoguia_meds', JSON.stringify(meds));
   ['med-nombre','med-dosis','med-hora1','med-hora2'].forEach(id=>document.getElementById(id).value='');
   renderMeds();
 }
-function delMed(id){meds=meds.filter(m=>m.id!==id);renderMeds();}
+function delMed(id){meds=meds.filter(m=>m.id!==id);localStorage.setItem('glucoguia_meds', JSON.stringify(meds));renderMeds();}
 function renderMeds(){
   const el=document.getElementById('med-list');
   if(!meds.length){el.innerHTML='<div class="empty-state">💊 Aún no tienes medicamentos.<br>Agrega uno arriba.</div>';return;}
@@ -658,6 +656,10 @@ function showTab(name){
   window.scrollTo({top:0,behavior:'smooth'});
   if(name==='historial')setTimeout(renderHistorial,100);
 }
+
+// ===================== INICIO =====================
+renderMeds();
+renderPerfil();
 </script>
 </body>
 </html>
