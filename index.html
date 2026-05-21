@@ -4,16 +4,41 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
 <meta name="theme-color" content="#0A5C47"/>
+<style>
+@media (min-width:600px){
+  .app{max-width:600px!important}
+  
+.mic-btn{padding:12px 14px;background:#fff;color:#1D9E75;border:2px solid #1D9E75;border-radius:14px;font-size:20px;cursor:pointer;transition:.2s}
+.mic-btn.recording{background:#FF3B30;border-color:#FF3B30;color:white;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+.mic-status{font-size:12px;color:#1D9E75;text-align:center;margin-top:6px;min-height:18px;font-weight:600}
+.bottom-nav{max-width:600px!important}
+  .card{padding:20px!important}
+  .nav-label{font-size:11px!important}
+  .nav-icon{font-size:24px!important}
+  .stats-row{gap:12px!important}
+  .header{padding:24px 24px 36px!important}
+}
+@media (min-width:900px){
+  .app{max-width:720px!important}
+  
+.mic-btn{padding:12px 14px;background:#fff;color:#1D9E75;border:2px solid #1D9E75;border-radius:14px;font-size:20px;cursor:pointer;transition:.2s}
+.mic-btn.recording{background:#FF3B30;border-color:#FF3B30;color:white;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+.mic-status{font-size:12px;color:#1D9E75;text-align:center;margin-top:6px;min-height:18px;font-weight:600}
+.bottom-nav{max-width:720px!important}
+}
+</style>
 <title>GlucoGuía 🩺</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{font-family:'Nunito',sans-serif;background:#F0F4F2;min-height:100vh;display:flex;justify-content:center}
-.app{width:100%;max-width:430px;min-height:100vh;background:#F0F4F2;padding-bottom:80px}
+body{font-family:'Nunito',sans-serif;background:#F0F4F2;min-height:100vh;display:flex;justify-content:center;align-items:flex-start}
+.app{width:100%;max-width:600px;min-height:100vh;background:#F0F4F2;padding-bottom:80px}
 .header{background:linear-gradient(160deg,#0A5C47 0%,#1D9E75 100%);padding:20px 20px 32px;color:white}
 .header-top{display:flex;justify-content:space-between;align-items:center}
-.app-name{font-size:22px;font-weight:800}
+.app-name{font-size:clamp(18px,5vw,24px);font-weight:800}
 .header-sub{font-size:12px;opacity:.8;margin-top:2px}
 .header-badges{display:flex;gap:6px;margin-top:14px;flex-wrap:wrap}
 .hbadge{background:rgba(255,255,255,.18);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600}
@@ -22,7 +47,7 @@ body{font-family:'Nunito',sans-serif;background:#F0F4F2;min-height:100vh;display
 .card{background:#fff;border-radius:20px;padding:16px;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
 .lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#aaa;margin-bottom:10px}
 .glucosa-display{text-align:center;padding:10px 0 6px}
-.glucosa-num{font-size:60px;font-weight:800;color:#1D9E75;line-height:1}
+.glucosa-num{font-size:clamp(40px,10vw,60px);font-weight:800;color:#1D9E75;line-height:1}
 .glucosa-unit{font-size:13px;color:#aaa;margin-top:3px;font-weight:600}
 .status-pill{display:inline-block;margin-top:10px;padding:6px 20px;border-radius:20px;font-size:13px;font-weight:700}
 .s-normal{background:#E1F5EE;color:#0A5C47}.s-pre{background:#FFF3E0;color:#E65100}.s-high{background:#FFEBEE;color:#B71C1C}
@@ -136,7 +161,12 @@ body{font-family:'Nunito',sans-serif;background:#F0F4F2;min-height:100vh;display
 .welcome-banner{background:linear-gradient(135deg,#E1F5EE,#F0F9F5);border-radius:16px;padding:14px 16px;margin-bottom:12px;display:flex;align-items:center;gap:12px}
 .welcome-name{font-size:16px;font-weight:800;color:#0A5C47}
 .welcome-sub{font-size:12px;color:#888;font-weight:600;margin-top:2px}
-.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:white;border-top:1px solid #F0F0F0;display:flex;padding:8px 0 16px;box-shadow:0 -4px 24px rgba(0,0,0,.08);z-index:100}
+
+.mic-btn{padding:12px 14px;background:#fff;color:#1D9E75;border:2px solid #1D9E75;border-radius:14px;font-size:20px;cursor:pointer;transition:.2s}
+.mic-btn.recording{background:#FF3B30;border-color:#FF3B30;color:white;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+.mic-status{font-size:12px;color:#1D9E75;text-align:center;margin-top:6px;min-height:18px;font-weight:600}
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:600px;background:white;border-top:1px solid #F0F0F0;display:flex;padding:8px 0 16px;box-shadow:0 -4px 24px rgba(0,0,0,.08);z-index:100}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:4px 0}
 .nav-icon{font-size:20px;line-height:1}
 .nav-label{font-size:9px;color:#555;font-weight:800;letter-spacing:.3px}
@@ -286,7 +316,9 @@ body{font-family:'Nunito',sans-serif;background:#F0F4F2;min-height:100vh;display
         <div class="ai-send-row">
           <input type="text" id="aiinput" placeholder="Escribe tu pregunta..." onkeydown="if(event.key==='Enter')sendIA()"/>
           <button class="send-btn" onclick="sendIA()">➤</button>
+          <button class="mic-btn" id="mic-btn" onclick="toggleMic()" title="Hablar con la IA">🎤</button>
         </div>
+        <div class="mic-status" id="mic-status"></div>
       </div>
     </div>
 
@@ -713,6 +745,87 @@ function showTab(name){
   window.scrollTo({top:0,behavior:'smooth'});
   if(name==='historial')setTimeout(renderHistorial,100);
 }
+
+// ===================== MICRÓFONO / VOZ =====================
+let recognition = null;
+let isRecording = false;
+
+function initSpeech(){
+  if(!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)){
+    document.getElementById('mic-btn').style.display='none';
+    return;
+  }
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SR();
+  recognition.lang = 'es-MX';
+  recognition.continuous = false;
+  recognition.interimResults = true;
+
+  recognition.onstart = () => {
+    isRecording = true;
+    document.getElementById('mic-btn').textContent = '⏹️';
+    document.getElementById('mic-btn').classList.add('recording');
+    document.getElementById('mic-status').textContent = '🎤 Escuchando... habla ahora';
+    document.getElementById('aiinput').placeholder = 'Escuchando...';
+  };
+
+  recognition.onresult = (e) => {
+    let transcript = '';
+    for(let i=e.resultIndex;i<e.results.length;i++){
+      transcript += e.results[i][0].transcript;
+    }
+    document.getElementById('aiinput').value = transcript;
+    if(e.results[e.results.length-1].isFinal){
+      document.getElementById('mic-status').textContent = '✅ Listo — enviando...';
+      setTimeout(()=>{
+        sendIA();
+        stopMic();
+      }, 500);
+    }
+  };
+
+  recognition.onerror = (e) => {
+    document.getElementById('mic-status').textContent = '⚠️ No te escuché, intenta de nuevo';
+    stopMic();
+  };
+
+  recognition.onend = () => {
+    stopMic();
+  };
+}
+
+function toggleMic(){
+  if(isRecording){
+    stopMic();
+  } else {
+    startMic();
+  }
+}
+
+function startMic(){
+  if(!recognition){ initSpeech(); }
+  if(!recognition){ 
+    alert('Tu navegador no soporta el micrófono. Usa Chrome.');
+    return;
+  }
+  try{
+    recognition.start();
+  }catch(e){
+    document.getElementById('mic-status').textContent = '⚠️ Error al iniciar micrófono';
+  }
+}
+
+function stopMic(){
+  isRecording = false;
+  if(recognition) try{ recognition.stop(); }catch(e){}
+  document.getElementById('mic-btn').textContent = '🎤';
+  document.getElementById('mic-btn').classList.remove('recording');
+  document.getElementById('mic-status').textContent = '';
+  document.getElementById('aiinput').placeholder = 'Escribe tu pregunta...';
+}
+
+// Inicializar al cargar
+initSpeech();
 
 // ===================== INICIO =====================
 renderMeds();
