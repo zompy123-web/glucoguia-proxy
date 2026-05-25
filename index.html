@@ -12,6 +12,36 @@
 .mic-btn.recording{background:#FF3B30;border-color:#FF3B30;color:white;animation:pulse 1s infinite}
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
 .mic-status{font-size:12px;color:#1D9E75;text-align:center;margin-top:6px;min-height:18px;font-weight:600}
+
+.blog-card{background:#fff;border-radius:20px;margin-bottom:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06);cursor:pointer}
+.blog-img{width:100%;height:140px;display:flex;align-items:center;justify-content:center;font-size:60px;background:linear-gradient(135deg,#E1F5EE,#9FE1CB)}
+.blog-body{padding:14px}
+.blog-cat{font-size:11px;font-weight:700;color:#1D9E75;background:#E1F5EE;padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:8px}
+.blog-title{font-size:16px;font-weight:800;color:#1a1a1a;margin-bottom:6px;line-height:1.4}
+.blog-desc{font-size:13px;color:#888;line-height:1.6;font-weight:600;margin-bottom:10px}
+.blog-meta{display:flex;justify-content:space-between;align-items:center}
+.blog-time{font-size:11px;color:#aaa;font-weight:600}
+.blog-read{font-size:12px;color:#1D9E75;font-weight:700}
+.article-view{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#fff;z-index:9999;overflow-y:auto}
+.article-header{background:linear-gradient(160deg,#0A5C47,#1D9E75);padding:20px;color:white;position:sticky;top:0;z-index:10}
+.article-back{background:rgba(255,255,255,.2);border:none;color:white;padding:8px 14px;border-radius:20px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif}
+.article-content{padding:20px;max-width:600px;margin:0 auto}
+.article-content h1{font-size:22px;font-weight:800;color:#0A5C47;margin-bottom:8px;line-height:1.3}
+.article-content h2{font-size:17px;font-weight:700;color:#1D9E75;margin:20px 0 8px}
+.article-content p{font-size:14px;color:#444;line-height:1.8;margin-bottom:12px;font-weight:600}
+.article-content ul{padding-left:20px;margin-bottom:12px}
+.article-content ul li{font-size:14px;color:#444;line-height:1.8;font-weight:600;margin-bottom:4px}
+.article-cta{background:linear-gradient(135deg,#0A5C47,#1D9E75);border-radius:16px;padding:20px;text-align:center;margin:20px 0;color:white}
+.article-cta-title{font-size:16px;font-weight:800;margin-bottom:8px}
+.article-cta-desc{font-size:13px;opacity:.9;margin-bottom:14px;font-weight:600}
+.article-cta-btn{background:#FFD700;color:#1a1a1a;border:none;border-radius:12px;padding:12px 24px;font-size:14px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif}
+.blog-search{display:flex;gap:8px;margin-bottom:14px}
+.blog-search input{flex:1;padding:11px 14px;border:2px solid #E8E8E8;border-radius:14px;font-size:14px;font-family:'Nunito',sans-serif;font-weight:600;background:#fff;color:#1a1a1a;outline:none}
+.blog-search input:focus{border-color:#1D9E75}
+.blog-cats{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;margin-bottom:14px}
+.blog-cats::-webkit-scrollbar{display:none}
+.blog-cat-btn{padding:7px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;border:2px solid #E8E8E8;background:#fff;color:#999;white-space:nowrap;flex-shrink:0;font-family:'Nunito',sans-serif}
+.blog-cat-btn.active{background:#1D9E75;color:white;border-color:#1D9E75}
 .bottom-nav{max-width:600px!important}
   .card{padding:20px!important}
   .nav-label{font-size:11px!important}
@@ -26,6 +56,36 @@
 .mic-btn.recording{background:#FF3B30;border-color:#FF3B30;color:white;animation:pulse 1s infinite}
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
 .mic-status{font-size:12px;color:#1D9E75;text-align:center;margin-top:6px;min-height:18px;font-weight:600}
+
+.blog-card{background:#fff;border-radius:20px;margin-bottom:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06);cursor:pointer}
+.blog-img{width:100%;height:140px;display:flex;align-items:center;justify-content:center;font-size:60px;background:linear-gradient(135deg,#E1F5EE,#9FE1CB)}
+.blog-body{padding:14px}
+.blog-cat{font-size:11px;font-weight:700;color:#1D9E75;background:#E1F5EE;padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:8px}
+.blog-title{font-size:16px;font-weight:800;color:#1a1a1a;margin-bottom:6px;line-height:1.4}
+.blog-desc{font-size:13px;color:#888;line-height:1.6;font-weight:600;margin-bottom:10px}
+.blog-meta{display:flex;justify-content:space-between;align-items:center}
+.blog-time{font-size:11px;color:#aaa;font-weight:600}
+.blog-read{font-size:12px;color:#1D9E75;font-weight:700}
+.article-view{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#fff;z-index:9999;overflow-y:auto}
+.article-header{background:linear-gradient(160deg,#0A5C47,#1D9E75);padding:20px;color:white;position:sticky;top:0;z-index:10}
+.article-back{background:rgba(255,255,255,.2);border:none;color:white;padding:8px 14px;border-radius:20px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif}
+.article-content{padding:20px;max-width:600px;margin:0 auto}
+.article-content h1{font-size:22px;font-weight:800;color:#0A5C47;margin-bottom:8px;line-height:1.3}
+.article-content h2{font-size:17px;font-weight:700;color:#1D9E75;margin:20px 0 8px}
+.article-content p{font-size:14px;color:#444;line-height:1.8;margin-bottom:12px;font-weight:600}
+.article-content ul{padding-left:20px;margin-bottom:12px}
+.article-content ul li{font-size:14px;color:#444;line-height:1.8;font-weight:600;margin-bottom:4px}
+.article-cta{background:linear-gradient(135deg,#0A5C47,#1D9E75);border-radius:16px;padding:20px;text-align:center;margin:20px 0;color:white}
+.article-cta-title{font-size:16px;font-weight:800;margin-bottom:8px}
+.article-cta-desc{font-size:13px;opacity:.9;margin-bottom:14px;font-weight:600}
+.article-cta-btn{background:#FFD700;color:#1a1a1a;border:none;border-radius:12px;padding:12px 24px;font-size:14px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif}
+.blog-search{display:flex;gap:8px;margin-bottom:14px}
+.blog-search input{flex:1;padding:11px 14px;border:2px solid #E8E8E8;border-radius:14px;font-size:14px;font-family:'Nunito',sans-serif;font-weight:600;background:#fff;color:#1a1a1a;outline:none}
+.blog-search input:focus{border-color:#1D9E75}
+.blog-cats{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;margin-bottom:14px}
+.blog-cats::-webkit-scrollbar{display:none}
+.blog-cat-btn{padding:7px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;border:2px solid #E8E8E8;background:#fff;color:#999;white-space:nowrap;flex-shrink:0;font-family:'Nunito',sans-serif}
+.blog-cat-btn.active{background:#1D9E75;color:white;border-color:#1D9E75}
 .bottom-nav{max-width:720px!important}
 }
 </style>
@@ -166,6 +226,36 @@ body{font-family:'Nunito',sans-serif;background:#F0F4F2;min-height:100vh;display
 .mic-btn.recording{background:#FF3B30;border-color:#FF3B30;color:white;animation:pulse 1s infinite}
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
 .mic-status{font-size:12px;color:#1D9E75;text-align:center;margin-top:6px;min-height:18px;font-weight:600}
+
+.blog-card{background:#fff;border-radius:20px;margin-bottom:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06);cursor:pointer}
+.blog-img{width:100%;height:140px;display:flex;align-items:center;justify-content:center;font-size:60px;background:linear-gradient(135deg,#E1F5EE,#9FE1CB)}
+.blog-body{padding:14px}
+.blog-cat{font-size:11px;font-weight:700;color:#1D9E75;background:#E1F5EE;padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:8px}
+.blog-title{font-size:16px;font-weight:800;color:#1a1a1a;margin-bottom:6px;line-height:1.4}
+.blog-desc{font-size:13px;color:#888;line-height:1.6;font-weight:600;margin-bottom:10px}
+.blog-meta{display:flex;justify-content:space-between;align-items:center}
+.blog-time{font-size:11px;color:#aaa;font-weight:600}
+.blog-read{font-size:12px;color:#1D9E75;font-weight:700}
+.article-view{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#fff;z-index:9999;overflow-y:auto}
+.article-header{background:linear-gradient(160deg,#0A5C47,#1D9E75);padding:20px;color:white;position:sticky;top:0;z-index:10}
+.article-back{background:rgba(255,255,255,.2);border:none;color:white;padding:8px 14px;border-radius:20px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif}
+.article-content{padding:20px;max-width:600px;margin:0 auto}
+.article-content h1{font-size:22px;font-weight:800;color:#0A5C47;margin-bottom:8px;line-height:1.3}
+.article-content h2{font-size:17px;font-weight:700;color:#1D9E75;margin:20px 0 8px}
+.article-content p{font-size:14px;color:#444;line-height:1.8;margin-bottom:12px;font-weight:600}
+.article-content ul{padding-left:20px;margin-bottom:12px}
+.article-content ul li{font-size:14px;color:#444;line-height:1.8;font-weight:600;margin-bottom:4px}
+.article-cta{background:linear-gradient(135deg,#0A5C47,#1D9E75);border-radius:16px;padding:20px;text-align:center;margin:20px 0;color:white}
+.article-cta-title{font-size:16px;font-weight:800;margin-bottom:8px}
+.article-cta-desc{font-size:13px;opacity:.9;margin-bottom:14px;font-weight:600}
+.article-cta-btn{background:#FFD700;color:#1a1a1a;border:none;border-radius:12px;padding:12px 24px;font-size:14px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif}
+.blog-search{display:flex;gap:8px;margin-bottom:14px}
+.blog-search input{flex:1;padding:11px 14px;border:2px solid #E8E8E8;border-radius:14px;font-size:14px;font-family:'Nunito',sans-serif;font-weight:600;background:#fff;color:#1a1a1a;outline:none}
+.blog-search input:focus{border-color:#1D9E75}
+.blog-cats{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;margin-bottom:14px}
+.blog-cats::-webkit-scrollbar{display:none}
+.blog-cat-btn{padding:7px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;border:2px solid #E8E8E8;background:#fff;color:#999;white-space:nowrap;flex-shrink:0;font-family:'Nunito',sans-serif}
+.blog-cat-btn.active{background:#1D9E75;color:white;border-color:#1D9E75}
 .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:600px;background:white;border-top:1px solid #F0F0F0;display:flex;padding:8px 0 16px;box-shadow:0 -4px 24px rgba(0,0,0,.08);z-index:100}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:4px 0}
 .nav-icon{font-size:20px;line-height:1}
@@ -180,7 +270,10 @@ body{font-family:'Nunito',sans-serif;background:#F0F4F2;min-height:100vh;display
   <div class="header">
     <div class="header-top">
       <div><div class="app-name">🩺 GlucoGuía</div><div class="header-sub">Tu salud en un solo lugar</div></div>
-      <a href="#" onclick="showTab('donacion');return false;" style="background:rgba(255,255,255,.25);border:2px solid rgba(255,255,255,.5);color:white;padding:7px 14px;border-radius:20px;font-size:13px;font-weight:800;text-decoration:none">💝 Donar</a>
+      <div style="display:flex;gap:8px;align-items:center">
+        <a href="#" onclick="showTab('perfil');return false;" style="background:rgba(255,255,255,.25);border:2px solid rgba(255,255,255,.5);color:white;padding:7px 14px;border-radius:20px;font-size:13px;font-weight:800;text-decoration:none">👤 Perfil</a>
+        <a href="#" onclick="showTab('donacion');return false;" style="background:rgba(255,255,255,.25);border:2px solid rgba(255,255,255,.5);color:white;padding:7px 14px;border-radius:20px;font-size:13px;font-weight:800;text-decoration:none">💝 Donar</a>
+      </div>
     </div>
     <div class="header-badges">
       <span class="hbadge">Diabéticos</span><span class="hbadge">Prediabéticos</span><span class="hbadge">IA incluida</span>
@@ -379,6 +472,25 @@ body{font-family:'Nunito',sans-serif;background:#F0F4F2;min-height:100vh;display
       </div>
     </div>
 
+
+    <!-- BLOG -->
+    <div id="tab-blog" class="section">
+      <div style="margin-top:18px">
+        <div class="blog-search">
+          <input type="text" id="blog-search" placeholder="🔍 Buscar artículos..." oninput="filterBlog()"/>
+        </div>
+        <div class="blog-cats" id="blog-cats"></div>
+        <div id="blog-list"></div>
+      </div>
+    </div>
+
+    <!-- ARTICLE VIEW -->
+    <div class="article-view" id="article-view">
+      <div class="article-header">
+        <button class="article-back" onclick="closeArticle()">← Volver</button>
+      </div>
+      <div class="article-content" id="article-content"></div>
+    </div>
     <!-- DONACIÓN -->
     <div id="tab-donacion" class="section">
       <div style="margin-top:18px">
@@ -415,7 +527,7 @@ body{font-family:'Nunito',sans-serif;background:#F0F4F2;min-height:100vh;display
     <div class="nav-item" id="nav-recetas" onclick="showTab('recetas')"><div class="nav-icon">🍽️</div><div class="nav-label">RECETAS</div></div>
     <div class="nav-item" id="nav-ejercicios" onclick="showTab('ejercicios')"><div class="nav-icon">🏃</div><div class="nav-label">EJERCICIOS</div></div>
     <div class="nav-item" id="nav-ia" onclick="showTab('ia')"><div class="nav-icon">🤖</div><div class="nav-label">IA CHAT</div></div>
-    <div class="nav-item" id="nav-perfil" onclick="showTab('perfil')"><div class="nav-icon">👤</div><div class="nav-label">PERFIL</div></div>
+    <div class="nav-item" id="nav-blog" onclick="showTab('blog')"><div class="nav-icon">📝</div><div class="nav-label">BLOG</div></div>
   </div>
 </div>
 
@@ -827,11 +939,296 @@ function stopMic(){
 // Inicializar al cargar
 initSpeech();
 
+// ===================== BLOG / ARTÍCULOS =====================
+const ARTICULOS = [
+  {
+    id:1,
+    emoji:'🥗',
+    cat:'Alimentación',
+    title:'10 alimentos que bajan el azúcar naturalmente',
+    desc:'Descubre los alimentos más poderosos para controlar tu glucosa sin medicamentos.',
+    tiempo:'5 min lectura',
+    keywords:['alimentos','azucar','glucosa','dieta','diabetes'],
+    contenido:`
+      <h1>10 alimentos que bajan el azúcar naturalmente</h1>
+      <p>Controlar el azúcar en sangre no siempre requiere medicamentos. La alimentación es tu herramienta más poderosa. Aquí te presentamos los 10 alimentos más efectivos para mantener tu glucosa bajo control.</p>
+
+      <h2>1. 🌵 Nopal</h2>
+      <p>El nopal es el rey de los alimentos antidiabéticos. Rico en fibra y antioxidantes, puede reducir el azúcar en sangre hasta un 30%. Consúmelo en licuados, ensaladas o a la plancha cada mañana en ayunas para mejores resultados.</p>
+
+      <h2>2. 🥦 Brócoli</h2>
+      <p>El brócoli contiene sulforafano, un compuesto que mejora la sensibilidad a la insulina. Además es rico en cromo, mineral esencial para el metabolismo de la glucosa. Come al vapor o crudo para conservar sus propiedades.</p>
+
+      <h2>3. 🫐 Arándanos</h2>
+      <p>Los arándanos tienen un índice glucémico muy bajo y están llenos de antioxidantes que protegen las células del páncreas. Una taza al día puede mejorar significativamente el control de la glucosa.</p>
+
+      <h2>4. 🥑 Aguacate</h2>
+      <p>El aguacate es rico en grasas saludables y fibra que ralentizan la absorción de azúcar. Comer medio aguacate con las comidas puede reducir el pico de glucosa postprandial hasta un 40%.</p>
+
+      <h2>5. 🫘 Lentejas y frijoles</h2>
+      <p>Las legumbres tienen un índice glucémico muy bajo y son ricas en proteína vegetal y fibra. Sustituir el arroz por lentejas puede reducir el azúcar postprandial a la mitad.</p>
+
+      <h2>6. 🥬 Espinaca</h2>
+      <p>La espinaca es rica en magnesio, mineral que mejora la sensibilidad a la insulina. Las personas con diabetes frecuentemente tienen deficiencia de magnesio. Come espinaca cruda en ensaladas o en smoothies verdes.</p>
+
+      <h2>7. 🧄 Ajo</h2>
+      <p>El ajo contiene alicina, compuesto que estimula la secreción de insulina y mejora su sensibilidad. Un diente de ajo crudo al día puede hacer una diferencia significativa en tus niveles de glucosa.</p>
+
+      <h2>8. 🫚 Aceite de oliva</h2>
+      <p>El aceite de oliva extra virgen mejora la sensibilidad a la insulina y reduce la inflamación. Úsalo como aderezo principal en ensaladas y para cocinar a temperatura baja.</p>
+
+      <h2>9. 🍵 Té verde</h2>
+      <p>El té verde contiene EGCG, un antioxidante que mejora la sensibilidad a la insulina. Beber 2-3 tazas al día sin azúcar puede reducir los niveles de glucosa en ayunas.</p>
+
+      <h2>10. 🌿 Canela</h2>
+      <p>La canela imita los efectos de la insulina y puede reducir la glucosa en ayunas hasta un 29%. Agrega ½ cucharadita a tu avena, café o té cada mañana.</p>
+
+      <h2>Conclusión</h2>
+      <p>Incorporar estos alimentos a tu dieta diaria, junto con ejercicio regular y el monitoreo de tu glucosa, puede hacer una diferencia enorme en tu salud. Recuerda siempre consultar a tu médico antes de hacer cambios significativos en tu dieta.</p>
+    `
+  },
+  {
+    id:2,
+    emoji:'🏃',
+    cat:'Ejercicio',
+    title:'Los mejores ejercicios para diabéticos en casa',
+    desc:'Rutinas simples y efectivas que puedes hacer sin gimnasio para bajar el azúcar.',
+    tiempo:'4 min lectura',
+    keywords:['ejercicio','diabetes','rutina','caminar','glucosa'],
+    contenido:`
+      <h1>Los mejores ejercicios para diabéticos en casa</h1>
+      <p>El ejercicio es una de las herramientas más poderosas para controlar la diabetes. No necesitas un gimnasio ni equipo costoso — con 30 minutos al día en casa puedes transformar tu salud.</p>
+
+      <h2>¿Por qué el ejercicio baja el azúcar?</h2>
+      <p>Cuando haces ejercicio, tus músculos usan glucosa como combustible sin necesitar insulina. Esto reduce directamente el azúcar en sangre y mejora la sensibilidad a la insulina por hasta 48 horas después del ejercicio.</p>
+
+      <h2>🚶 1. Caminata después de comer</h2>
+      <p>Caminar 10-15 minutos después de cada comida es el ejercicio más efectivo para diabéticos. Reduce el pico de glucosa postprandial hasta un 30%. No necesitas caminar rápido — un paso moderado es suficiente.</p>
+
+      <h2>💪 2. Sentadillas</h2>
+      <p>Las sentadillas trabajan los músculos más grandes del cuerpo, que son los mayores consumidores de glucosa. Haz 3 series de 10-15 repeticiones. Si tienes problemas de rodillas, hazlas sentado y parándote de una silla.</p>
+
+      <h2>🧘 3. Yoga suave</h2>
+      <p>El yoga reduce el cortisol (hormona del estrés que eleva el azúcar) y mejora la circulación. 20 minutos de yoga suave al día puede reducir la hemoglobina A1c significativamente.</p>
+
+      <h2>🏊 4. Ejercicio en agua</h2>
+      <p>Si tienes problemas en las articulaciones, el ejercicio en agua es ideal. Reduce el impacto mientras trabaja todos los músculos. Busca clases de aqua-aeróbicos en tu área.</p>
+
+      <h2>📅 Plan semanal recomendado</h2>
+      <p><strong>Lunes, Miércoles, Viernes:</strong> 30 minutos de caminata + 10 minutos de sentadillas</p>
+      <p><strong>Martes, Jueves:</strong> 20 minutos de yoga o estiramientos</p>
+      <p><strong>Sábado:</strong> Actividad que disfrutes — bailar, nadar, andar en bicicleta</p>
+      <p><strong>Domingo:</strong> Descanso activo — caminata ligera de 15 minutos</p>
+
+      <h2>⚠️ Precauciones importantes</h2>
+      <p>Mide tu glucosa antes y después de ejercitarte. Si está por debajo de 100 mg/dL antes de ejercitar, come un pequeño snack primero. Si está por encima de 300 mg/dL, espera a que baje antes de ejercitarte intensamente.</p>
+    `
+  },
+  {
+    id:3,
+    emoji:'⚠️',
+    cat:'Salud',
+    title:'Síntomas de prediabetes que no debes ignorar',
+    desc:'Aprende a reconocer las señales de alerta antes de que la diabetes se desarrolle.',
+    tiempo:'6 min lectura',
+    keywords:['prediabetes','sintomas','señales','glucosa','prevencion'],
+    contenido:`
+      <h1>Síntomas de prediabetes que no debes ignorar</h1>
+      <p>La prediabetes es una condición seria pero reversible. El problema es que muchas personas la tienen sin saberlo — se estima que el 84% de los prediabéticos no están diagnosticados. Conocer las señales puede salvarte de desarrollar diabetes tipo 2.</p>
+
+      <h2>¿Qué es la prediabetes?</h2>
+      <p>La prediabetes significa que tu glucosa en sangre está más alta de lo normal (100-125 mg/dL en ayunas) pero no lo suficientemente alta para ser diabetes. Sin cambios en el estilo de vida, el 37% de las personas con prediabetes desarrollan diabetes tipo 2 en 4 años.</p>
+
+      <h2>🚨 Señales de alerta</h2>
+
+      <h2>1. Sed excesiva y boca seca</h2>
+      <p>Cuando hay demasiada glucosa en sangre, los riñones trabajan extra para filtrarla, causando más orina y deshidratación. Si tomas más agua de lo usual sin razón aparente, esto puede ser una señal.</p>
+
+      <h2>2. Fatiga inexplicable</h2>
+      <p>Con prediabetes, las células no reciben glucosa eficientemente como combustible, causando cansancio constante incluso después de dormir bien. Si te sientes agotado sin razón, presta atención.</p>
+
+      <h2>3. Visión borrosa</h2>
+      <p>El exceso de glucosa puede causar cambios en el cristalino del ojo, afectando la visión. Si notas que tu visión cambia durante el día, consulta a tu médico.</p>
+
+      <h2>4. Cicatrización lenta</h2>
+      <p>La glucosa elevada afecta la circulación y el sistema inmunológico, haciendo que las heridas tarden más en sanar. Si un corte pequeño tarda semanas en cicatrizar, es una señal importante.</p>
+
+      <h2>5. Hormigueo en manos y pies</h2>
+      <p>La glucosa elevada daña los nervios periféricos, causando sensaciones de hormigueo, ardor o entumecimiento. Este es uno de los primeros síntomas de daño neurológico.</p>
+
+      <h2>6. Manchas oscuras en la piel</h2>
+      <p>La acantosis nigricans son manchas oscuras y aterciopeladas que aparecen en el cuello, axilas o ingles. Son causadas por resistencia a la insulina y son una señal muy específica de prediabetes.</p>
+
+      <h2>7. Infecciones frecuentes</h2>
+      <p>El azúcar elevada alimenta a las bacterias y debilita el sistema inmunológico. Si tienes infecciones de vejiga, hongos o encías frecuentes, puede ser una señal.</p>
+
+      <h2>✅ ¿Qué hacer si tienes estos síntomas?</h2>
+      <p>Lo más importante es hacerte un análisis de sangre. Pide a tu médico una prueba de glucosa en ayunas o una hemoglobina A1c. La prediabetes es completamente reversible con cambios en la alimentación y ejercicio regular.</p>
+
+      <h2>La buena noticia</h2>
+      <p>Perder solo el 5-7% de tu peso corporal y hacer 150 minutos de ejercicio a la semana puede reducir el riesgo de desarrollar diabetes tipo 2 en un 58%. ¡Estás a tiempo de hacer un cambio!</p>
+    `
+  },
+  {
+    id:4,
+    emoji:'💊',
+    cat:'Salud',
+    title:'Metformina: todo lo que debes saber',
+    desc:'Guía completa sobre el medicamento más usado para la diabetes tipo 2.',
+    tiempo:'5 min lectura',
+    keywords:['metformina','medicamento','diabetes','tipo 2','insulina'],
+    contenido:`
+      <h1>Metformina: todo lo que debes saber</h1>
+      <p>La metformina es el medicamento más prescrito para la diabetes tipo 2 en el mundo. Si te lo recetaron recientemente o quieres entender mejor cómo funciona, esta guía es para ti.</p>
+
+      <h2>¿Qué es la metformina?</h2>
+      <p>La metformina es un medicamento antidiabético oral que pertenece a la familia de las biguanidas. Se usa principalmente para tratar la diabetes tipo 2 y, en algunos casos, la prediabetes.</p>
+
+      <h2>¿Cómo funciona?</h2>
+      <p>La metformina actúa de tres formas principales: reduce la producción de glucosa en el hígado, mejora la sensibilidad a la insulina en músculos y tejidos, y reduce ligeramente la absorción de glucosa en el intestino.</p>
+
+      <h2>⏰ ¿Cuándo tomarla?</h2>
+      <p>La metformina generalmente se toma con las comidas para reducir los efectos secundarios gastrointestinales. Tu médico te indicará la dosis específica — generalmente empieza baja y se aumenta gradualmente.</p>
+
+      <h2>⚠️ Efectos secundarios comunes</h2>
+      <p>Los efectos más comunes son náuseas, diarrea y malestar estomacal, especialmente al inicio del tratamiento. Estos suelen mejorar con el tiempo. Tomar la pastilla con alimentos ayuda a reducirlos.</p>
+
+      <h2>🚫 Cuándo NO tomarla</h2>
+      <p>Informa a tu médico si tienes problemas renales, hepáticos o vas a hacerte un estudio con contraste. En estos casos puede necesitarse suspender temporalmente el medicamento.</p>
+
+      <h2>💡 Consejos para el uso</h2>
+      <p>Nunca dejes de tomar la metformina sin consultar a tu médico. Mantén un horario regular de tomas. Combínala con dieta saludable y ejercicio para mejores resultados. Monitorea tu glucosa regularmente.</p>
+
+      <h2>Importante</h2>
+      <p>Esta información es educativa. Siempre sigue las instrucciones específicas de tu médico sobre dosificación y uso de medicamentos.</p>
+    `
+  },
+  {
+    id:5,
+    emoji:'🥗',
+    cat:'Alimentación',
+    title:'Dieta para prediabéticos: qué comer y qué evitar',
+    desc:'Plan de alimentación completo para revertir la prediabetes y prevenir la diabetes.',
+    tiempo:'7 min lectura',
+    keywords:['dieta','prediabetes','alimentacion','comer','evitar'],
+    contenido:`
+      <h1>Dieta para prediabéticos: qué comer y qué evitar</h1>
+      <p>La dieta es tu arma más poderosa contra la prediabetes. Con los cambios correctos en tu alimentación puedes revertir completamente la prediabetes y evitar desarrollar diabetes tipo 2.</p>
+
+      <h2>✅ Alimentos que SÍ puedes comer</h2>
+
+      <h2>Verduras sin almidón</h2>
+      <p>Come todas las que quieras: espinaca, brócoli, coliflor, pepino, zanahoria, apio, pimiento, lechuga. Son ricas en fibra y tienen muy poco impacto en el azúcar.</p>
+
+      <h2>Proteínas magras</h2>
+      <p>Pollo sin piel, pescado, huevos, tofu, frijoles y lentejas. Las proteínas no elevan el azúcar y te mantienen satisfecho por más tiempo.</p>
+
+      <h2>Grasas saludables</h2>
+      <p>Aguacate, nueces, almendras, aceite de oliva, semillas de chía y linaza. Las grasas buenas ralentizan la absorción de azúcar y reducen la inflamación.</p>
+
+      <h2>Frutas de bajo índice glucémico</h2>
+      <p>Fresas, arándanos, manzana verde, pera, durazno. Consúmelas con moderación y preferiblemente enteras, nunca en jugo.</p>
+
+      <h2>🚫 Alimentos que DEBES evitar</h2>
+
+      <h2>Azúcares simples</h2>
+      <p>Refrescos, jugos, dulces, pasteles, galletas, helados. Estos elevan el azúcar de forma inmediata y dramática.</p>
+
+      <h2>Carbohidratos refinados</h2>
+      <p>Pan blanco, arroz blanco, pasta regular, tortillas de harina. Sustitúyelos por versiones integrales que tienen más fibra.</p>
+
+      <h2>Alimentos ultraprocesados</h2>
+      <p>Papas fritas, comida rápida, embutidos, cereales de caja azucarados. Contienen azúcares ocultos y grasas trans que empeoran la resistencia a la insulina.</p>
+
+      <h2>📅 Ejemplo de menú diario</h2>
+      <p><strong>Desayuno:</strong> Avena con canela y fresas, café sin azúcar</p>
+      <p><strong>Snack AM:</strong> Manzana con mantequilla de maní</p>
+      <p><strong>Almuerzo:</strong> Pechuga de pollo con ensalada y aguacate</p>
+      <p><strong>Snack PM:</strong> Nueces y yogur griego sin azúcar</p>
+      <p><strong>Cena:</strong> Salmón al vapor con brócoli y espinaca</p>
+
+      <h2>El método del plato</h2>
+      <p>Una forma simple de organizar tu plato: la mitad debe ser verduras, un cuarto proteína magra y un cuarto carbohidratos complejos. Este método simple puede reducir tu glucosa postprandial significativamente.</p>
+    `
+  }
+];
+
+let blogCatActiva = 'Todos';
+const BLOG_CATS = ['Todos', 'Alimentación', 'Ejercicio', 'Salud'];
+
+function initBlog(){
+  const bc = document.getElementById('blog-cats');
+  if(!bc) return;
+  BLOG_CATS.forEach(c => {
+    const b = document.createElement('button');
+    b.className = 'blog-cat-btn' + (c === blogCatActiva ? ' active' : '');
+    b.textContent = c;
+    b.onclick = () => {
+      blogCatActiva = c;
+      document.querySelectorAll('.blog-cat-btn').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      renderBlog();
+    };
+    bc.appendChild(b);
+  });
+  renderBlog();
+}
+
+function filterBlog(){
+  renderBlog();
+}
+
+function renderBlog(){
+  const search = document.getElementById('blog-search')?.value.toLowerCase() || '';
+  const filtered = ARTICULOS.filter(a => {
+    const matchCat = blogCatActiva === 'Todos' || a.cat === blogCatActiva;
+    const matchSearch = !search || a.title.toLowerCase().includes(search) || 
+      a.desc.toLowerCase().includes(search) || 
+      a.keywords.some(k => k.includes(search));
+    return matchCat && matchSearch;
+  });
+  
+  document.getElementById('blog-list').innerHTML = filtered.map(a => `
+    <div class="blog-card" onclick="openArticle(${a.id})">
+      <div class="blog-img">${a.emoji}</div>
+      <div class="blog-body">
+        <span class="blog-cat">${a.cat}</span>
+        <div class="blog-title">${a.title}</div>
+        <div class="blog-desc">${a.desc}</div>
+        <div class="blog-meta">
+          <span class="blog-time">⏱ ${a.tiempo}</span>
+          <span class="blog-read">Leer artículo →</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openArticle(id){
+  const art = ARTICULOS.find(a => a.id === id);
+  if(!art) return;
+  const view = document.getElementById('article-view');
+  document.getElementById('article-content').innerHTML = art.contenido + `
+    <div class="article-cta">
+      <div class="article-cta-title">💚 ¿Te fue útil este artículo?</div>
+      <div class="article-cta-desc">Descarga GlucoGuía y lleva el control de tu diabetes con IA, recetas y más.</div>
+      <button class="article-cta-btn" onclick="closeArticle()">🩺 Usar GlucoGuía gratis</button>
+    </div>
+  `;
+  view.style.display = 'block';
+  view.scrollTop = 0;
+}
+
+function closeArticle(){
+  document.getElementById('article-view').style.display = 'none';
+}
+
 // ===================== INICIO =====================
 renderMeds();
 renderPerfil();
 checkAlarmas();
 checkCalificacion();
+initBlog();
 </script>
 </body>
 </html>
