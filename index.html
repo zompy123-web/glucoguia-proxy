@@ -50,6 +50,27 @@
 .blog-cats::-webkit-scrollbar{display:none}
 .blog-cat-btn{padding:7px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;border:2px solid #E8E8E8;background:#fff;color:#999;white-space:nowrap;flex-shrink:0;font-family:'Nunito',sans-serif}
 .blog-cat-btn.active{background:#1D9E75;color:white;border-color:#1D9E75}
+
+.camera-section{background:linear-gradient(135deg,#0A5C47,#1D9E75);border-radius:20px;padding:20px;margin-bottom:14px;text-align:center;color:white}
+.camera-title{font-size:17px;font-weight:800;margin-bottom:6px}
+.camera-desc{font-size:13px;opacity:.85;margin-bottom:16px;font-weight:600;line-height:1.5}
+.camera-buttons{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.camera-btn{background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.5);color:white;padding:12px 18px;border-radius:14px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;display:flex;align-items:center;gap:6px}
+.camera-preview{width:100%;border-radius:16px;margin-top:14px;display:none;max-height:300px;object-fit:cover}
+.camera-result{background:#F0F9F5;border-radius:14px;padding:14px;font-size:13px;color:#1a1a1a;line-height:1.8;margin-top:12px;display:none;white-space:pre-wrap;font-weight:600;text-align:left}
+.camera-analyzing{text-align:center;padding:20px;display:none}
+.camera-analyzing-icon{font-size:48px;animation:spin 2s linear infinite;display:block;margin-bottom:10px}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.nutrition-card{background:#fff;border-radius:16px;padding:14px;margin-top:12px;display:none;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.nutrition-title{font-size:15px;font-weight:800;color:#0A5C47;margin-bottom:12px}
+.nutrition-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.nutrition-item{background:#F8FAF9;border-radius:12px;padding:10px;text-align:center}
+.nutrition-val{font-size:18px;font-weight:800;color:#1D9E75}
+.nutrition-lbl{font-size:11px;color:#aaa;font-weight:600;margin-top:2px}
+.nutrition-alert{border-radius:12px;padding:10px 14px;margin-top:10px;font-size:13px;font-weight:700}
+.alert-ok{background:#E1F5EE;color:#0A5C47}
+.alert-warn{background:#FFF3E0;color:#E65100}
+.alert-bad{background:#FFEBEE;color:#B71C1C}
 .bottom-nav{max-width:600px!important}
   .card{padding:20px!important}
   .nav-label{font-size:11px!important}
@@ -94,6 +115,27 @@
 .blog-cats::-webkit-scrollbar{display:none}
 .blog-cat-btn{padding:7px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;border:2px solid #E8E8E8;background:#fff;color:#999;white-space:nowrap;flex-shrink:0;font-family:'Nunito',sans-serif}
 .blog-cat-btn.active{background:#1D9E75;color:white;border-color:#1D9E75}
+
+.camera-section{background:linear-gradient(135deg,#0A5C47,#1D9E75);border-radius:20px;padding:20px;margin-bottom:14px;text-align:center;color:white}
+.camera-title{font-size:17px;font-weight:800;margin-bottom:6px}
+.camera-desc{font-size:13px;opacity:.85;margin-bottom:16px;font-weight:600;line-height:1.5}
+.camera-buttons{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.camera-btn{background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.5);color:white;padding:12px 18px;border-radius:14px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;display:flex;align-items:center;gap:6px}
+.camera-preview{width:100%;border-radius:16px;margin-top:14px;display:none;max-height:300px;object-fit:cover}
+.camera-result{background:#F0F9F5;border-radius:14px;padding:14px;font-size:13px;color:#1a1a1a;line-height:1.8;margin-top:12px;display:none;white-space:pre-wrap;font-weight:600;text-align:left}
+.camera-analyzing{text-align:center;padding:20px;display:none}
+.camera-analyzing-icon{font-size:48px;animation:spin 2s linear infinite;display:block;margin-bottom:10px}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.nutrition-card{background:#fff;border-radius:16px;padding:14px;margin-top:12px;display:none;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.nutrition-title{font-size:15px;font-weight:800;color:#0A5C47;margin-bottom:12px}
+.nutrition-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.nutrition-item{background:#F8FAF9;border-radius:12px;padding:10px;text-align:center}
+.nutrition-val{font-size:18px;font-weight:800;color:#1D9E75}
+.nutrition-lbl{font-size:11px;color:#aaa;font-weight:600;margin-top:2px}
+.nutrition-alert{border-radius:12px;padding:10px 14px;margin-top:10px;font-size:13px;font-weight:700}
+.alert-ok{background:#E1F5EE;color:#0A5C47}
+.alert-warn{background:#FFF3E0;color:#E65100}
+.alert-bad{background:#FFEBEE;color:#B71C1C}
 .bottom-nav{max-width:720px!important}
 }
 </style>
@@ -264,6 +306,27 @@ body{font-family:'Nunito',sans-serif;background:#F0F4F2;min-height:100vh;display
 .blog-cats::-webkit-scrollbar{display:none}
 .blog-cat-btn{padding:7px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;border:2px solid #E8E8E8;background:#fff;color:#999;white-space:nowrap;flex-shrink:0;font-family:'Nunito',sans-serif}
 .blog-cat-btn.active{background:#1D9E75;color:white;border-color:#1D9E75}
+
+.camera-section{background:linear-gradient(135deg,#0A5C47,#1D9E75);border-radius:20px;padding:20px;margin-bottom:14px;text-align:center;color:white}
+.camera-title{font-size:17px;font-weight:800;margin-bottom:6px}
+.camera-desc{font-size:13px;opacity:.85;margin-bottom:16px;font-weight:600;line-height:1.5}
+.camera-buttons{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.camera-btn{background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.5);color:white;padding:12px 18px;border-radius:14px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;display:flex;align-items:center;gap:6px}
+.camera-preview{width:100%;border-radius:16px;margin-top:14px;display:none;max-height:300px;object-fit:cover}
+.camera-result{background:#F0F9F5;border-radius:14px;padding:14px;font-size:13px;color:#1a1a1a;line-height:1.8;margin-top:12px;display:none;white-space:pre-wrap;font-weight:600;text-align:left}
+.camera-analyzing{text-align:center;padding:20px;display:none}
+.camera-analyzing-icon{font-size:48px;animation:spin 2s linear infinite;display:block;margin-bottom:10px}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.nutrition-card{background:#fff;border-radius:16px;padding:14px;margin-top:12px;display:none;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.nutrition-title{font-size:15px;font-weight:800;color:#0A5C47;margin-bottom:12px}
+.nutrition-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.nutrition-item{background:#F8FAF9;border-radius:12px;padding:10px;text-align:center}
+.nutrition-val{font-size:18px;font-weight:800;color:#1D9E75}
+.nutrition-lbl{font-size:11px;color:#aaa;font-weight:600;margin-top:2px}
+.nutrition-alert{border-radius:12px;padding:10px 14px;margin-top:10px;font-size:13px;font-weight:700}
+.alert-ok{background:#E1F5EE;color:#0A5C47}
+.alert-warn{background:#FFF3E0;color:#E65100}
+.alert-bad{background:#FFEBEE;color:#B71C1C}
 .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:600px;background:white;border-top:1px solid #F0F0F0;display:flex;padding:8px 0 16px;box-shadow:0 -4px 24px rgba(0,0,0,.08);z-index:100}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:4px 0}
 .nav-icon{font-size:20px;line-height:1}
@@ -409,6 +472,29 @@ body{font-family:'Nunito',sans-serif;background:#F0F4F2;min-height:100vh;display
     <!-- IA CHAT -->
     <div id="tab-ia" class="section">
       <div style="margin-top:18px">
+        <!-- CÁMARA IA -->
+        <div class="camera-section">
+          <div class="camera-title">📸 Analizar alimento con IA</div>
+          <div class="camera-desc">Toma una foto de tu comida o etiqueta nutricional y la IA te dirá si es apto para diabéticos</div>
+          <div class="camera-buttons">
+            <button class="camera-btn" onclick="abrirCamara()">📷 Tomar foto</button>
+            <button class="camera-btn" onclick="subirFoto()">🖼️ Subir imagen</button>
+          </div>
+          <img id="camera-preview" class="camera-preview" alt="Vista previa"/>
+          <div class="camera-analyzing" id="camera-analyzing">
+            <span class="camera-analyzing-icon">🔍</span>
+            <div style="font-size:14px;font-weight:700;color:#1D9E75">Analizando imagen...</div>
+            <div style="font-size:12px;color:#888;margin-top:4px">La IA está identificando los nutrientes</div>
+          </div>
+          <div class="nutrition-card" id="nutrition-card">
+            <div class="nutrition-title" id="nutrition-food-name">Análisis nutricional</div>
+            <div class="nutrition-grid" id="nutrition-grid"></div>
+            <div class="nutrition-alert" id="nutrition-alert"></div>
+          </div>
+        </div>
+        <input type="file" id="foto-input" accept="image/*" style="display:none" onchange="procesarFoto(this)"/>
+        <input type="file" id="camara-input" accept="image/*" capture="environment" style="display:none" onchange="procesarFoto(this)"/>
+
         <div class="lbl">Preguntas rápidas</div>
         <div class="qbtns" id="qbtns"></div>
         <div class="ai-msgs" id="aimsg">
@@ -864,6 +950,140 @@ function showTab(name){
   document.getElementById('nav-'+name).classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
   if(name==='historial')setTimeout(renderHistorial,100);
+}
+
+// ===================== CÁMARA / ANÁLISIS NUTRICIONAL =====================
+function abrirCamara(){
+  document.getElementById('camara-input').click();
+}
+
+function subirFoto(){
+  document.getElementById('foto-input').click();
+}
+
+function procesarFoto(input){
+  if(!input.files || !input.files[0]) return;
+  const file = input.files[0];
+  const reader = new FileReader();
+  
+  reader.onload = async (e) => {
+    const base64 = e.target.result;
+    const preview = document.getElementById('camera-preview');
+    preview.src = base64;
+    preview.style.display = 'block';
+    
+    document.getElementById('nutrition-card').style.display = 'none';
+    document.getElementById('camera-analyzing').style.display = 'block';
+    
+    const base64Data = base64.split(',')[1];
+    const mimeType = file.type || 'image/jpeg';
+    
+    try {
+      const res = await fetch('/api', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          model: 'claude-haiku-4-5-20251001',
+          max_tokens: 1000,
+          system: `Eres un nutricionista especializado en diabetes. Analiza la imagen y responde SIEMPRE en este formato JSON exacto sin markdown:
+{
+  "alimento": "nombre del alimento o producto",
+  "calorias": número,
+  "carbohidratos": número en gramos,
+  "azucares": número en gramos,
+  "proteinas": número en gramos,
+  "grasas": número en gramos,
+  "fibra": número en gramos,
+  "porcion": "descripción de la porción analizada",
+  "apto_diabeticos": "SI" o "NO" o "MODERADO",
+  "razon": "explicación breve de por qué es o no apto para diabéticos",
+  "recomendacion": "consejo específico para diabéticos"
+}
+Si no puedes identificar el alimento claramente, usa valores estimados. Responde SOLO el JSON, sin texto adicional.`,
+          messages: [{
+            role: 'user',
+            content: [
+              {
+                type: 'image',
+                source: {
+                  type: 'base64',
+                  media_type: mimeType,
+                  data: base64Data
+                }
+              },
+              {
+                type: 'text',
+                text: '¿Qué alimento es este y cuáles son sus datos nutricionales? ¿Es apto para diabéticos?'
+              }
+            ]
+          }]
+        })
+      });
+      
+      const data = await res.json();
+      const text = data.content?.[0]?.text || '';
+      
+      document.getElementById('camera-analyzing').style.display = 'none';
+      
+      try {
+        const clean = text.replace(/```json|```/g, '').trim();
+        const nutrition = JSON.parse(clean);
+        mostrarNutricion(nutrition);
+      } catch(e) {
+        // Si no puede parsear JSON, mostrar texto directo
+        mostrarResultadoTexto(text);
+      }
+      
+    } catch(e) {
+      document.getElementById('camera-analyzing').style.display = 'none';
+      alert('Error al analizar la imagen. Verifica tu conexión.');
+    }
+  };
+  
+  reader.readAsDataURL(file);
+  input.value = '';
+}
+
+function mostrarNutricion(n){
+  const card = document.getElementById('nutrition-card');
+  document.getElementById('nutrition-food-name').textContent = '🍽️ ' + (n.alimento || 'Alimento analizado');
+  
+  document.getElementById('nutrition-grid').innerHTML = `
+    <div class="nutrition-item"><div class="nutrition-val">${n.calorias || '--'}</div><div class="nutrition-lbl">Calorías</div></div>
+    <div class="nutrition-item"><div class="nutrition-val">${n.carbohidratos || '--'}g</div><div class="nutrition-lbl">Carbohidratos</div></div>
+    <div class="nutrition-item"><div class="nutrition-val">${n.azucares || '--'}g</div><div class="nutrition-lbl">Azúcares</div></div>
+    <div class="nutrition-item"><div class="nutrition-val">${n.proteinas || '--'}g</div><div class="nutrition-lbl">Proteínas</div></div>
+    <div class="nutrition-item"><div class="nutrition-val">${n.grasas || '--'}g</div><div class="nutrition-lbl">Grasas</div></div>
+    <div class="nutrition-item"><div class="nutrition-val">${n.fibra || '--'}g</div><div class="nutrition-lbl">Fibra</div></div>
+  `;
+  
+  const alertEl = document.getElementById('nutrition-alert');
+  if(n.apto_diabeticos === 'SI'){
+    alertEl.className = 'nutrition-alert alert-ok';
+    alertEl.textContent = '✅ APTO para diabéticos — ' + (n.razon || '');
+  } else if(n.apto_diabeticos === 'MODERADO'){
+    alertEl.className = 'nutrition-alert alert-warn';
+    alertEl.textContent = '⚠️ CONSUMIR CON MODERACIÓN — ' + (n.razon || '');
+  } else {
+    alertEl.className = 'nutrition-alert alert-bad';
+    alertEl.textContent = '🔴 NO RECOMENDADO para diabéticos — ' + (n.razon || '');
+  }
+  
+  if(n.recomendacion){
+    alertEl.textContent += ' 💡 ' + n.recomendacion;
+  }
+  
+  card.style.display = 'block';
+}
+
+function mostrarResultadoTexto(texto){
+  const card = document.getElementById('nutrition-card');
+  document.getElementById('nutrition-food-name').textContent = '🔍 Análisis de la IA';
+  document.getElementById('nutrition-grid').innerHTML = '';
+  const alertEl = document.getElementById('nutrition-alert');
+  alertEl.className = 'nutrition-alert alert-ok';
+  alertEl.textContent = texto;
+  card.style.display = 'block';
 }
 
 // ===================== MICRÓFONO / VOZ =====================
